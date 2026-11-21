@@ -1,8 +1,3 @@
-container.enchant.lapis.one=1 Lapis Lazuli
-container.enchant.lapis.many=%d Lapis Lazuli
-container.enchant.level.one=1 Niveau Requis
-container.enchant.level.many=%d Niveaux Requis
-container.enchant.clue=%s . . . ?
 
 # Item localizations
 item.ganyssurface.woodenHelmet.name=Casque en Bois

@@ -57,7 +57,9 @@ public class ConfigurationHandler {
 			"Enable wooden pressure plates",
 			"Enable wooden trapdoors",
 			"Enable wooden signs",
-			"Make fences, gates and deadbushes burnable" };
+			"Make fences, gates and deadbushes burnable",
+			"Enable 1.8 Enchanting Table",
+			"Enable 1.8 Stone Bricks recipes" };
 
 	private int configInteger(String name, boolean requireRestart, int def) {
 		return configInteger(name, null, requireRestart, def);
@@ -155,10 +157,6 @@ public class ConfigurationHandler {
 		GanysSurface.enableNoRecipeConflictForCrafTable = configBoolean("Enable No Recipe Conflict for only the vanilla Crafting Tables", "You'll need to turn this off to craft Extra Utilities's Unstable Ingots", true, GanysSurface.enableNoRecipeConflictForCrafTable);
 		GanysSurface.enableMarket = configBoolean("Enable Market", true, GanysSurface.enableMarket);
 		GanysSurface.enableEatenCake = configBoolean("Cakes drop themselves", true, GanysSurface.enableEatenCake);
-
-		// 1.8 Stuff
-		GanysSurface.enable18Enchants = configBoolean("Enable 1.8 Enchanting Table", true, GanysSurface.enable18Enchants);
-		GanysSurface.enableStoneBrickRecipes = configBoolean("Enable 1.8 Stone Bricks recipes", true, GanysSurface.enableStoneBrickRecipes);
 
 		// Others
 		GanysSurface.shouldDoVersionCheck = configBoolean("shouldDoVersionCheck", true, GanysSurface.shouldDoVersionCheck);

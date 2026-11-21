@@ -45,8 +45,6 @@ public class ModRecipes {
 		registerBlockRecipes();
 		registerItemRecipes();
 
-		add18RecipeTweaks();
-
 		tweakRecipes();
 
 		if (GanysSurface.enableOMC)
@@ -367,20 +365,6 @@ public class ModRecipes {
 				addShapelessRecipe(new ItemStack(Blocks.stained_glass, 1, i), Blocks.glass, reDyes[i]);
 			}
 		}
-	}
-
-	private static void add18RecipeTweaks() {
-		if (GanysSurface.enableStoneBrickRecipes) {
-			addShapelessRecipe(new ItemStack(Blocks.mossy_cobblestone), new ItemStack(Blocks.cobblestone), new ItemStack(Blocks.vine));
-			addShapelessRecipe(new ItemStack(Blocks.stonebrick, 1, 1), new ItemStack(Blocks.stonebrick), new ItemStack(Blocks.vine));
-			addShapedRecipe(new ItemStack(Blocks.stonebrick, 1, 3), "x", "x", 'x', new ItemStack(Blocks.stone_slab, 1, 5));
-			GameRegistry.addSmelting(new ItemStack(Blocks.stonebrick), new ItemStack(Blocks.stonebrick, 1, 2), 0.0F);
-		}
-
-		// Every 1.8 block and item that used to be crafted here (coarse dirt,
-		// mutton, iron trapdoor, granite/diorite/andesite, prismarine, wood doors,
-		// red sandstone, fences and gates, banners, sponge) is registered by Et
-		// Futurum Requiem, so only the vanilla recipe tweaks remain.
 	}
 
 	private static void addShapedRecipe(ItemStack output, Object... objects) {

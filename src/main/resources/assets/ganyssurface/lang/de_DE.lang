@@ -1,8 +1,3 @@
-container.enchant.lapis.one=1 Lapislazuli
-container.enchant.lapis.many=%d Lapislazuli
-container.enchant.level.one=1 Verzauberungslevel
-container.enchant.level.many=%d Verzauberungslevel
-container.enchant.clue=%s . . . ?
 
 # Item localizations
 item.ganyssurface.woodenHelmet.name=Holzhelm

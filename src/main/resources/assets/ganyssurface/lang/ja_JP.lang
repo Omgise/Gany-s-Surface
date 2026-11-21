@@ -1,8 +1,3 @@
-container.enchant.lapis.one=1 ラピスラズリ
-container.enchant.lapis.many=%d ラピスラズリ
-container.enchant.level.one=1 エンチャントレベル
-container.enchant.level.many=%d エンチャントレベル
-container.enchant.clue=%s . . . ?
 
 # Itemのローカライズ
 item.ganyssurface.woodenHelmet.name=木のヘルメット

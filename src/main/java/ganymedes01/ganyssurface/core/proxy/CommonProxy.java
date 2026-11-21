@@ -10,7 +10,6 @@ import ganymedes01.ganyssurface.client.gui.inventory.GuiBlockDetector;
 import ganymedes01.ganyssurface.client.gui.inventory.GuiCraftingTable;
 import ganymedes01.ganyssurface.client.gui.inventory.GuiDualWorkTable;
 import ganymedes01.ganyssurface.client.gui.inventory.GuiEncasingBench;
-import ganymedes01.ganyssurface.client.gui.inventory.GuiEnchantment;
 import ganymedes01.ganyssurface.client.gui.inventory.GuiFarmManager;
 import ganymedes01.ganyssurface.client.gui.inventory.GuiGearalyser;
 import ganymedes01.ganyssurface.client.gui.inventory.GuiInkHarvester;
@@ -34,7 +33,6 @@ import ganymedes01.ganyssurface.inventory.ContainerBlockDetector;
 import ganymedes01.ganyssurface.inventory.ContainerCraftingTable;
 import ganymedes01.ganyssurface.inventory.ContainerDualWorkTable;
 import ganymedes01.ganyssurface.inventory.ContainerEncasingBench;
-import ganymedes01.ganyssurface.inventory.ContainerEnchantment;
 import ganymedes01.ganyssurface.inventory.ContainerFarmManager;
 import ganymedes01.ganyssurface.inventory.ContainerGearalyser;
 import ganymedes01.ganyssurface.inventory.ContainerInkHarvester;
@@ -160,10 +158,6 @@ public class CommonProxy implements IGuiHandler {
 				return new ContainerAutoEncaser(player.inventory, (TileEntityAutoEncaser) tile);
 			case GEARALYSER:
 				return new ContainerGearalyser(player.inventory);
-			case ENCHANTING_TABLE:
-				return new ContainerEnchantment(player.inventory, world, x, y, z);
-			case WOOD_SIGN:
-				return null;
 			case CRAFTING_TABLE_NO_CONFLICT:
 				return new ContainerCraftingTable(player.inventory, world, x, y, z);
 			case MARKET:
@@ -200,8 +194,6 @@ public class CommonProxy implements IGuiHandler {
 				return new GuiAutoEncaser(player.inventory, (TileEntityAutoEncaser) tile);
 			case GEARALYSER:
 				return new GuiGearalyser(player.inventory);
-			case ENCHANTING_TABLE:
-				return new GuiEnchantment(player.inventory, world, null);
 			case CRAFTING_TABLE_NO_CONFLICT:
 				return new GuiCraftingTable(player.inventory, world, x, y, z);
 			case MARKET:

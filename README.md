@@ -79,9 +79,16 @@ dislocators, encasers, item display, ink harvester, rain detector, cushion,
 chocolate cake, charcoal block, slow rail, coloured redstone, storage/dye blocks,
 wooden wrench, quiver, paintings and every other non-1.8 feature.
 
-Also dropped as a side effect: the Tinkers' Construct smeltery recipes for the
-removed iron trapdoor, and the 1.8-style "wood doors stack to 64 / vanilla door
-recipe replacement" tweaks (Et Futurum Requiem owns that behaviour now).
+Also dropped as a side effect of the 1.8 cleanup:
+
+* the Tinkers' Construct smeltery recipes for the removed iron trapdoor;
+* the 1.8-style "wood doors stack to 64 / vanilla door recipe replacement" tweaks
+  (Et Futurum Requiem owns that behaviour now);
+* Gany's Surface's 1.8 enchanting table GUI (lapis cost, per-player seed storage)
+  and its `container.enchant.*` translations — the vanilla enchanting table is
+  used again;
+* the 1.8 stone brick recipes (mossy cobblestone / mossy stone brick from vines,
+  chiselled stone brick from slabs, smooth stone brick from smelting).
 
 ## Upstream
 

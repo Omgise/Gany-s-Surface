@@ -104,12 +104,6 @@ public class GanysSurface {
 	public static boolean enableChests = true;
 	public static boolean enableWoodenBookshelves = true;
 
-	// 1.8 features that are still shipped (recipes/enchanting table only; every
-	// 1.8 block and item they used to come with was removed because Et Futurum
-	// Requiem registers the same content).
-	public static boolean enable18Enchants = true;
-	public static boolean enableStoneBrickRecipes = true;
-
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent event) {
 		ModIntegrator.preInit();
