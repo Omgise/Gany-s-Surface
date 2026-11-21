@@ -85,6 +85,7 @@ an Et Futurum duplicate):
 | wood-specific bookshelves (5 types) | `BlockWoodBookshelf`, textured per wood type |
 | 3D bed inventory model | `ItemBedRenderer`; Et Futurum Requiem does the same with `Item3DBedRenderer` (`inventoryBedModels`) |
 | 3D inventory models for vanilla items | `enable3DRendering`: hopper, cauldron, brewing stand, repeater, comparator, the five minecart items, boat, flower pot, lever, cake, torches and sign fell back to the vanilla 2D sprites; dropped because the extra renderers cost frame time. `ItemCakeRenderer` stays for Gany's own eaten/chocolate cake items |
+| leaf walls (hedges, 4 wood types) | `LeafWall`, its recipes, Thaumcraft aspects and the "Enable leaf walls" option |
 
 Their recipes, ore dictionary entries (`chestWood` / `stickWood` additions) and the
 vanilla-recipe replacements they performed are gone too, so vanilla chest, ladder,
@@ -110,6 +111,16 @@ Also dropped as a side effect of the 1.8 cleanup:
 * the 1.8 stone brick recipes (mossy cobblestone / mossy stone brick from vines,
   chiselled stone brick from slabs, smooth stone brick from smelting) — Et
   Futurum Requiem's `enableStoneBrickRecipes` option owns those now.
+
+## Quiver
+
+The quiver keeps plain arrows as a counter and stores Et Futurum Requiem's
+tipped arrows as NBT stacks (they carry their potion), firing them through EF's
+`EntityTippedArrow`. It implements Baubles-Expanded's `IBaubleExpanded` when that
+mod is installed, accepting the `quiver` and `cape` slots, and the bow handlers
+also look for a quiver worn as a bauble. Both integrations are optional at
+runtime: EF is reached by reflection and the Baubles item class is only loaded
+when `Loader.isModLoaded("Baubles")` is true.
 
 ## Upstream
 
