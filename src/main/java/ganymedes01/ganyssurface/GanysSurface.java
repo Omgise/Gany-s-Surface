@@ -2,7 +2,6 @@ package ganymedes01.ganyssurface;
 
 import java.io.File;
 
-import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.common.Mod.Instance;
@@ -23,8 +22,6 @@ import ganymedes01.ganyssurface.items.Quiver;
 import ganymedes01.ganyssurface.lib.Reference;
 import ganymedes01.ganyssurface.network.PacketHandler;
 import ganymedes01.ganyssurface.recipes.ModRecipes;
-import ganymedes01.ganyssurface.world.OceanMonument;
-import ganymedes01.ganyssurface.world.SurfaceWorldGen;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
@@ -77,7 +74,6 @@ public class GanysSurface {
 	public static boolean enableInkHarvester = true;
 	public static boolean enableRainDetector = true;
 	public static boolean enableCushion = true;
-	public static boolean enableLantern = true;
 	public static boolean enableBlockOfCharcoal = true;
 	public static boolean enableRot = true;
 	public static boolean enableWoodenWrench = true;
@@ -88,11 +84,8 @@ public class GanysSurface {
 	public static boolean enableEndermanDropsBlocks = true;
 	public static boolean enableDynamicTextureChests = false;
 	public static boolean enableSlowRail = true;
-	public static boolean enableBasalt = true;
 	public static boolean enableFlingablePoop = true;
-	public static boolean enableWoodenTrapdoors = true;
 	public static boolean enableWoodenLadders = true;
-	public static boolean enableWoodenSigns = true;
 	public static boolean enableStorageBlocks = true;
 	public static boolean enableDyeBlocks = true;
 	public static boolean enableNoRecipeConflict = true;
@@ -105,73 +98,26 @@ public class GanysSurface {
 	public static int maxLevelOMCWorks = 15;
 	public static int inkHarvesterMaxStrike = 5;
 	public static int poopingChance = 15000;
-	public static int basaltBlocksPerCluster = 33;
 	public static final String[] WOOD_NAMES = new String[] { "oak", "spruce", "birch", "jungle", "acacia", "dark_oak" };
 
 	// WoodStuff
 	public static boolean enableChests = true;
-	public static boolean enableWoodenButtons = true;
-	public static boolean enableWoodenPressurePlates = true;
 	public static boolean enableWoodenBookshelves = true;
 
-	// EtFuturum
-	public static boolean enableSlimeBlock = true;
-	public static boolean enableBeetroots = true;
-	public static boolean enableBurnableBlocks = true;
-	public static boolean enable18Stones = true;
-	public static boolean enableIronTrapdoor = true;
-	public static boolean enableMutton = true;
-	public static boolean enablePrismarineStuff = true;
-	public static boolean enableDoors = true;
-	public static boolean enableInvertedDaylightSensor = true;
-	public static boolean enableCoarseDirt = true;
-	public static boolean enableRedSandstone = true;
+	// 1.8 features that are still shipped (recipes/enchanting table only; every
+	// 1.8 block and item they used to come with was removed because Et Futurum
+	// Requiem registers the same content).
 	public static boolean enable18Enchants = true;
-	public static boolean enableFences = true;
-	public static boolean enableSilkTouchingMushrooms = true;
-	public static boolean enableBanners = true;
-	public static boolean enableSponge = true;
 	public static boolean enableStoneBrickRecipes = true;
-	public static int max18StonesPerCluster = 33;
 
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent event) {
 		ModIntegrator.preInit();
 
-		if (Loader.isModLoaded("etfuturum")) {
-			enableSlimeBlock = false;
-			enableBeetroots = false;
-			enableBurnableBlocks = false;
-			enable18Stones = false;
-			enableIronTrapdoor = false;
-			enableMutton = false;
-			enablePrismarineStuff = false;
-			enableDoors = false;
-			enableInvertedDaylightSensor = false;
-			enableCoarseDirt = false;
-			enableRedSandstone = false;
-			enable18Enchants = false;
-			enableFences = false;
-			enableSilkTouchingMushrooms = false;
-			enableBanners = false;
-			enableSponge = false;
-			enableStoneBrickRecipes = false;
-		}
-		if (Loader.isModLoaded("woodstuff")) {
-			enableChests = false;
-			enableWoodenButtons = false;
-			enableWoodenPressurePlates = false;
-			enableWoodenBookshelves = false;
-		}
-
 		ConfigurationHandler.INSTANCE.init(new File(event.getModConfigurationDirectory().getAbsolutePath() + File.separator + Reference.MASTER + File.separator + Reference.MOD_ID + ".cfg"));
-
-		GameRegistry.registerWorldGenerator(new SurfaceWorldGen(), 0);
 
 		ModBlocks.init();
 		ModItems.init();
-
-		OceanMonument.makeMap();
 	}
 
 	@EventHandler

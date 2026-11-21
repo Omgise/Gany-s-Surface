@@ -6,11 +6,9 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.ganyssurface.GanysSurface;
 import ganymedes01.ganyssurface.IConfigurable;
-import ganymedes01.ganyssurface.blocks.BlockWoodSign;
 import ganymedes01.ganyssurface.blocks.CubicSensoringDislocator;
 import ganymedes01.ganyssurface.blocks.Dislocator;
 import ganymedes01.ganyssurface.core.utils.Utils;
-import ganymedes01.ganyssurface.lib.GUIsID;
 import ganymedes01.ganyssurface.lib.Strings;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockQuartz;
@@ -95,9 +93,7 @@ public class WoodenWrench extends Item implements IConfigurable {
 			if (tile != null && !world.isRemote)
 				player.func_146100_a(tile);
 			return true;
-		} else if (block instanceof BlockWoodSign)
-			if (!world.isRemote)
-				player.openGui(GanysSurface.instance, GUIsID.WOOD_SIGN.ordinal(), world, x, y, z);
+		}
 		return false;
 	}
 

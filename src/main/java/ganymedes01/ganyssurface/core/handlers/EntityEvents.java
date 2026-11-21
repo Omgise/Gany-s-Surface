@@ -1,17 +1,14 @@
 package ganymedes01.ganyssurface.core.handlers;
 
 import java.util.List;
-import java.util.Random;
 
 import cpw.mods.fml.common.eventhandler.EventPriority;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import ganymedes01.ganyssurface.GanysSurface;
-import ganymedes01.ganyssurface.ModItems;
 import net.minecraft.block.Block;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.monster.EntityEnderman;
-import net.minecraft.entity.passive.EntitySheep;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.event.entity.living.LivingDropsEvent;
@@ -29,17 +26,7 @@ public class EntityEvents {
 	public void dropEvent(LivingDropsEvent event) {
 		if (event.entityLiving.worldObj.isRemote)
 			return;
-		Random rand = event.entityLiving.worldObj.rand;
-		if (event.entityLiving instanceof EntitySheep) {
-			if (GanysSurface.enableMutton) {
-				int amount = rand.nextInt(3) + 1 + rand.nextInt(1 + event.lootingLevel);
-				for (int i = 0; i < amount; i++)
-					if (event.entityLiving.isBurning())
-						addDrop(new ItemStack(ModItems.cookedMutton), event.entityLiving, event.drops);
-					else
-						addDrop(new ItemStack(ModItems.rawMutton), event.entityLiving, event.drops);
-			}
-		} else if (event.entityLiving instanceof EntityEnderman)
+		if (event.entityLiving instanceof EntityEnderman)
 			if (GanysSurface.enableEndermanDropsBlocks) {
 				EntityEnderman enderman = (EntityEnderman) event.entityLiving;
 				Block block = enderman.func_146080_bZ();

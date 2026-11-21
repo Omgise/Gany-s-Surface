@@ -10,12 +10,10 @@ import ganymedes01.ganyssurface.client.gui.inventory.GuiCraftingTable;
 import ganymedes01.ganyssurface.client.gui.inventory.GuiDualWorkTable;
 import ganymedes01.ganyssurface.client.gui.inventory.GuiPortableDualWorkTable;
 import ganymedes01.ganyssurface.client.gui.inventory.GuiWorkTable;
-import ganymedes01.ganyssurface.integration.nei.BannerPatternHandler;
 import ganymedes01.ganyssurface.integration.nei.MarketSalesHandler;
 import ganymedes01.ganyssurface.integration.nei.OMCYieldHandler;
 import ganymedes01.ganyssurface.lib.Reference;
 import net.minecraft.block.Block;
-import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 
 /**
@@ -49,11 +47,6 @@ public class NEIGanysSurfaceConfig implements IConfigureNEI {
 			API.registerUsageHandler(new OMCYieldHandler());
 		}
 
-		if (GanysSurface.enableBanners) {
-			API.registerRecipeHandler(new BannerPatternHandler());
-			API.registerUsageHandler(new BannerPatternHandler());
-		}
-
 		if (GanysSurface.enableMarket) {
 			API.registerRecipeHandler(new MarketSalesHandler());
 			API.registerUsageHandler(new MarketSalesHandler());
@@ -85,16 +78,6 @@ public class NEIGanysSurfaceConfig implements IConfigureNEI {
 
 		if (GanysSurface.enableEncasers)
 			API.hideItem(new ItemStack(ModItems.storageCase));
-
-		if (GanysSurface.enableBeetroots)
-			API.hideItem(new ItemStack(ModBlocks.beetroot));
-
-		if (GanysSurface.enableDoors)
-			for (Block door : ModBlocks.doors)
-				API.hideItem(new ItemStack(door));
-
-		if (GanysSurface.enableFences)
-			API.hideItem(new ItemStack(Blocks.fence));
 
 		if (GanysSurface.enableEatenCake)
 			API.hideItem(new ItemStack(ModItems.eatenCake));

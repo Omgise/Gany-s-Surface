@@ -82,7 +82,6 @@ public class ConfigurationHandler {
 		GanysSurface.enableEncasers = configBoolean("Enable encasers", true, GanysSurface.enableEncasers);
 		GanysSurface.enableOMC = configBoolean("Enable organic matter compressor", true, GanysSurface.enableOMC);
 		GanysSurface.enableSpawnEggs = configBoolean("Enable spawn eggs", true, GanysSurface.enableSpawnEggs);
-		GanysSurface.enableSlimeBlock = configBoolean("Enable slime block", true, GanysSurface.enableSlimeBlock);
 		GanysSurface.enableAnalisers = configBoolean("Enable analisers", true, GanysSurface.enableAnalisers);
 		GanysSurface.enableIcyPick = configBoolean("Enable Icy Pickaxe", true, GanysSurface.enableIcyPick);
 		GanysSurface.enableFertilisedSoil = configBoolean("Enable Fertilised Soil", true, GanysSurface.enableFertilisedSoil);
@@ -90,7 +89,6 @@ public class ConfigurationHandler {
 		GanysSurface.enableInkHarvester = configBoolean("Enable Ink Harvester", true, GanysSurface.enableInkHarvester);
 		GanysSurface.enableRainDetector = configBoolean("Enable Rain Detector", true, GanysSurface.enableRainDetector);
 		GanysSurface.enableCushion = configBoolean("Enable Cushion", true, GanysSurface.enableCushion);
-		GanysSurface.enableLantern = configBoolean("Enable Lantern", true, GanysSurface.enableLantern);
 		GanysSurface.enableBlockOfCharcoal = configBoolean("Enable Block of Charcoal", true, GanysSurface.enableBlockOfCharcoal);
 		GanysSurface.enableRot = configBoolean("Enable Rot", true, GanysSurface.enableRot);
 		GanysSurface.enableWoodenWrench = configBoolean("Enable Wooden Wrench", true, GanysSurface.enableWoodenWrench);
@@ -102,39 +100,18 @@ public class ConfigurationHandler {
 		GanysSurface.enableChests = configBoolean("Enable wood specific chests", true, GanysSurface.enableChests);
 		GanysSurface.enableDynamicTextureChests = configBoolean("Enable dynamic texture for wood chests", true, GanysSurface.enableDynamicTextureChests);
 		GanysSurface.enableSlowRail = configBoolean("Enable Slow Rail", true, GanysSurface.enableSlowRail);
-		GanysSurface.enableBasalt = configBoolean("Enable Basalt", true, GanysSurface.enableBasalt);
 		GanysSurface.enableFlingablePoop = configBoolean("Enable Poop Throwing", false, GanysSurface.enableFlingablePoop);
-		GanysSurface.enableBurnableBlocks = configBoolean("Make fences, gates and deadbushes burnable", "They aren't burnable in 1.7.10 but are in 1.8, set this to true to mimic the 1.8 behaviour", false, GanysSurface.enableBurnableBlocks);
-		GanysSurface.enableWoodenButtons = configBoolean("Enable wooden buttons", true, GanysSurface.enableWoodenButtons);
-		GanysSurface.enableWoodenPressurePlates = configBoolean("Enable wooden pressure plates", true, GanysSurface.enableWoodenPressurePlates);
-		GanysSurface.enableWoodenTrapdoors = configBoolean("Enable wooden trapdoors", true, GanysSurface.enableWoodenTrapdoors);
 		GanysSurface.enableWoodenLadders = configBoolean("Enable wooden ladders", true, GanysSurface.enableWoodenLadders);
-		GanysSurface.enableBeetroots = configBoolean("Enable MC:PE beetroots", true, GanysSurface.enableBeetroots);
-		GanysSurface.enableWoodenSigns = configBoolean("Enable wooden signs", true, GanysSurface.enableWoodenSigns);
 		GanysSurface.enableWoodenBookshelves = configBoolean("Enable wooden bookshelves", true, GanysSurface.enableWoodenBookshelves);
 		GanysSurface.enableStorageBlocks = configBoolean("Enable storage blocks", "More specifically: " + BlockStorage.getTypesString(), true, GanysSurface.enableStorageBlocks);
 		GanysSurface.enableDyeBlocks = configBoolean("Enable dye blocks", true, GanysSurface.enableDyeBlocks);
 		GanysSurface.enableNoRecipeConflict = configBoolean("Enable No Recipe Conflict for Crafting Tables", true, GanysSurface.enableNoRecipeConflict);
 		GanysSurface.enableNoRecipeConflictForCrafTable = configBoolean("Enable No Recipe Conflict for only the vanilla Crafting Tables", "You'll need to turn this off to craft Extra Utilities's Unstable Ingots", true, GanysSurface.enableNoRecipeConflictForCrafTable);
 		GanysSurface.enableMarket = configBoolean("Enable Market", true, GanysSurface.enableMarket);
-		GanysSurface.basaltBlocksPerCluster = configInteger("Max number of Basalt per cluster", true, GanysSurface.basaltBlocksPerCluster);
 		GanysSurface.enableEatenCake = configBoolean("Cakes drop themselves", true, GanysSurface.enableEatenCake);
 
 		// 1.8 Stuff
-		GanysSurface.enable18Stones = configBoolean("Enable 1.8 Stones", true, GanysSurface.enable18Stones);
-		GanysSurface.enableIronTrapdoor = configBoolean("Enable Iron Trapdoor", true, GanysSurface.enableIronTrapdoor);
-		GanysSurface.enableMutton = configBoolean("Enable Mutton", true, GanysSurface.enableMutton);
-		GanysSurface.enablePrismarineStuff = configBoolean("Enable Prismarine stuff", true, GanysSurface.enablePrismarineStuff);
-		GanysSurface.enableDoors = configBoolean("Enable 1.8 style doors", true, GanysSurface.enableDoors);
-		GanysSurface.enableInvertedDaylightSensor = configBoolean("Enable inverted daylight sensor", true, GanysSurface.enableInvertedDaylightSensor);
-		GanysSurface.enableCoarseDirt = configBoolean("Enable coarse dirt", true, GanysSurface.enableCoarseDirt);
 		GanysSurface.enable18Enchants = configBoolean("Enable 1.8 Enchanting Table", true, GanysSurface.enable18Enchants);
-		GanysSurface.enableFences = configBoolean("Enable 1.8 wood fences", true, GanysSurface.enableFences);
-		GanysSurface.enableSilkTouchingMushrooms = configBoolean("Enable Silk Touching of mushroom blocks", true, GanysSurface.enableSilkTouchingMushrooms);
-		GanysSurface.max18StonesPerCluster = configInteger("Max number of 1.8 stones in a cluster", true, GanysSurface.max18StonesPerCluster);
-		GanysSurface.enableBanners = configBoolean("Enable 1.8 banners", true, GanysSurface.enableBanners);
-		GanysSurface.enableRedSandstone = configBoolean("Enable 1.8 red sandstone", true, GanysSurface.enableRedSandstone);
-		GanysSurface.enableSponge = configBoolean("Enable 1.8 sponge (absorbs water)", true, GanysSurface.enableSponge);
 		GanysSurface.enableStoneBrickRecipes = configBoolean("Enable 1.8 Stone Bricks recipes", true, GanysSurface.enableStoneBrickRecipes);
 
 		// Others

@@ -18,7 +18,6 @@ import ganymedes01.ganyssurface.client.gui.inventory.GuiMarket;
 import ganymedes01.ganyssurface.client.gui.inventory.GuiOrganicMatterCompressor;
 import ganymedes01.ganyssurface.client.gui.inventory.GuiPlanter;
 import ganymedes01.ganyssurface.client.gui.inventory.GuiPortableDualWorkTable;
-import ganymedes01.ganyssurface.client.gui.inventory.GuiWoodSign;
 import ganymedes01.ganyssurface.client.gui.inventory.GuiWorkTable;
 import ganymedes01.ganyssurface.configuration.ConfigurationHandler;
 import ganymedes01.ganyssurface.core.handlers.EntityEvents;
@@ -48,7 +47,6 @@ import ganymedes01.ganyssurface.lib.GUIsID;
 import ganymedes01.ganyssurface.lib.ModIDs;
 import ganymedes01.ganyssurface.lib.Strings;
 import ganymedes01.ganyssurface.tileentities.TileEntityAutoEncaser;
-import ganymedes01.ganyssurface.tileentities.TileEntityBanner;
 import ganymedes01.ganyssurface.tileentities.TileEntityBlockDetector;
 import ganymedes01.ganyssurface.tileentities.TileEntityChestPropellant;
 import ganymedes01.ganyssurface.tileentities.TileEntityCubicSensoringDislocator;
@@ -63,7 +61,6 @@ import ganymedes01.ganyssurface.tileentities.TileEntityPlanter;
 import ganymedes01.ganyssurface.tileentities.TileEntityRainDetector;
 import ganymedes01.ganyssurface.tileentities.TileEntitySensoringDislocator;
 import ganymedes01.ganyssurface.tileentities.TileEntityWoodChest;
-import ganymedes01.ganyssurface.tileentities.TileEntityWoodSign;
 import ganymedes01.ganyssurface.tileentities.TileEntityWorkTable;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
@@ -83,8 +80,7 @@ public class CommonProxy implements IGuiHandler {
 		FMLCommonHandler.instance().bus().register(ConfigurationHandler.INSTANCE);
 		if (GanysSurface.enableDynamicSnow)
 			FMLCommonHandler.instance().bus().register(new SnowTickHandler());
-		if (GanysSurface.enableMutton)
-			MinecraftForge.EVENT_BUS.register(new EntityEvents());
+		MinecraftForge.EVENT_BUS.register(new EntityEvents());
 		if (GanysSurface.enablePoop)
 			MinecraftForge.EVENT_BUS.register(new PoopHandler());
 
@@ -121,10 +117,6 @@ public class CommonProxy implements IGuiHandler {
 			GameRegistry.registerTileEntity(TileEntityAutoEncaser.class, Utils.getUnlocalisedName(Strings.AUTO_ENCASER_NAME));
 		if (GanysSurface.enableChests)
 			GameRegistry.registerTileEntity(TileEntityWoodChest.class, Utils.getUnlocalisedName("wood_chest"));
-		if (GanysSurface.enableWoodenSigns)
-			GameRegistry.registerTileEntity(TileEntityWoodSign.class, Utils.getUnlocalisedName("wood_sign"));
-		if (GanysSurface.enableBanners)
-			GameRegistry.registerTileEntity(TileEntityBanner.class, Utils.getUnlocalisedName("banner"));
 		if (GanysSurface.enableMarket)
 			GameRegistry.registerTileEntity(TileEntityMarket.class, Utils.getUnlocalisedName(Strings.MARKET));
 	}
@@ -210,8 +202,6 @@ public class CommonProxy implements IGuiHandler {
 				return new GuiGearalyser(player.inventory);
 			case ENCHANTING_TABLE:
 				return new GuiEnchantment(player.inventory, world, null);
-			case WOOD_SIGN:
-				return new GuiWoodSign((TileEntityWoodSign) tile);
 			case CRAFTING_TABLE_NO_CONFLICT:
 				return new GuiCraftingTable(player.inventory, world, x, y, z);
 			case MARKET:

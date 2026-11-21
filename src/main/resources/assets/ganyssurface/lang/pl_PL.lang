@@ -67,9 +67,7 @@ tile.ganyssurface.itemDisplay.name=Wystawa
 tile.ganyssurface.chestPropellant.name=Napędzacz skrzyń
 tile.ganyssurface.fertilizedSoil.name=Zaorana ziemia z nawozem
 tile.ganyssurface.planter.name=Wysiewacz
-tile.ganyssurface.lantern.name=Latarnia
 tile.ganyssurface.inkHarvester.name=Zbieracz Tuszu
-tile.ganyssurface.slimeBlock.name=Blok szlamu
 tile.ganyssurface.dualWorkTable.name=Podwójny stół pracowniczy
 
 tile.ganyssurface.colouredRedstoneBLACK.name=Czarny proszek

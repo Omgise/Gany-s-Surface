@@ -27,9 +27,7 @@ public class Strings {
 	public static final String CHEST_PROPELLANT_NAME = "chestPropellant";
 	public static final String FERTILIZED_SOIL_NAME = "fertilizedSoil";
 	public static final String PLANTER_NAME = "planter";
-	public static final String LANTERN_NAME = "lantern";
 	public static final String INK_HARVESTER_NAME = "inkHarvester";
-	public static final String SLIME_BLOCK_NAME = "slimeBlock";
 	public static final String[] COLOURED_REDSTONE_NAME = new String[16];
 	static {
 		for (int i = 0; i < 16; i++)
@@ -42,18 +40,10 @@ public class Strings {
 	public static final String FARM_MANAGER_NAME = "farmManager";
 	public static final String ENCASING_BENCH_NAME = "encasingBench";
 	public static final String AUTO_ENCASER_NAME = "autoEncaser";
-	public static final String NEW_STONES_NAME = "18Stones";
-	public static final String IRON_TRAPDOOR = "iron_trapdoor";
-	public static final String PRISMARINE_BLOCKS = "prismarineBlocks";
-	public static final String SEA_LANTERN = "sea_lantern";
-	public static final String INVERTED_DAYLIGHT_SENSOR = "daylight_detector_inverted";
 	public static final String CHARCOAL_BLOCK = "charcoalBlock";
 	public static final String LEAF_WALL = "leafWall";
 	public static final String SLOW_RAIL = "slowRail";
-	public static final String BASALT = "basalt";
-	public static final String BLOCK_BEETROOT_NAME = "beetrootBlock";
 	public static final String BLOCK_OF_POOP_NAME = "blockOfPoop";
-	public static final String COARSE_DIRT = "coarse_dirt";
 	public static final String STORAGE = "storage";
 	public static final String DYE = "dye";
 	public static final String MARKET = "market";
@@ -85,16 +75,10 @@ public class Strings {
 	public static final String ROASTED_SQUID_NAME = "roastedSquid";
 	public static final String STORAGE_CASE_NAME = "storageCase";
 	public static final String GEARALYSER_NAME = "gearalyser";
-	public static final String RAW_MUTTON = "mutton_raw";
-	public static final String COOKED_MUTTON = "mutton_cooked";
-	public static final String PRISMARINE_ITEMS = "prismarineItems";
 	public static final String PINE_CONE_NAME = "pineCone";
 	public static final String PINE_NUTS_NAME = "pineNuts";
 	public static final String QUIVER_NAME = "quiver";
 	public static final String PAINTING_NAME = "painting";
-	public static final String BEETROOT_NAME = "beetroot";
-	public static final String BEETROOT_SOUP_NAME = "beetrootSoup";
-	public static final String BEETROOT_SEEDS_NAME = "beetrootSeeds";
 	public static final String STICK_NAME = "stick";
 
 	// Armour names

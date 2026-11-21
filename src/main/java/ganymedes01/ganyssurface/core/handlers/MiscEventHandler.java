@@ -7,13 +7,11 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 
-import cpw.mods.fml.common.eventhandler.Event.Result;
 import cpw.mods.fml.common.eventhandler.EventPriority;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.ganyssurface.GanysSurface;
-import ganymedes01.ganyssurface.ModBlocks;
 import ganymedes01.ganyssurface.ModItems;
 import ganymedes01.ganyssurface.client.renderer.tileentity.TileEntityWoodChestRenderer;
 import ganymedes01.ganyssurface.core.utils.Utils;
@@ -43,7 +41,6 @@ import net.minecraftforge.event.entity.player.EntityInteractEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent.Action;
-import net.minecraftforge.event.entity.player.UseHoeEvent;
 import net.minecraftforge.event.world.BlockEvent;
 
 /**
@@ -176,15 +173,6 @@ public class MiscEventHandler {
 				if (event.world.rand.nextInt(200) == 0)
 					event.drops.add(new ItemStack(ModItems.pineCone));
 
-		if (GanysSurface.enableSilkTouchingMushrooms && event.isSilkTouching)
-			if (event.block == Blocks.brown_mushroom_block) {
-				event.drops.clear();
-				event.drops.add(new ItemStack(ModBlocks.brown_mushroom_block));
-			} else if (event.block == Blocks.red_mushroom_block) {
-				event.drops.clear();
-				event.drops.add(new ItemStack(ModBlocks.red_mushroom_block));
-			}
-
 		if (GanysSurface.enableEatenCake)
 			if (event.block == Blocks.cake)
 				if (event.blockMetadata == 0)
@@ -195,19 +183,6 @@ public class MiscEventHandler {
 
 	@SubscribeEvent
 	public void onPlayerInteract(PlayerInteractEvent event) {
-		if (GanysSurface.enableInvertedDaylightSensor)
-			if (event.entityPlayer != null) {
-				World world = event.entityPlayer.worldObj;
-				if (event.action == Action.RIGHT_CLICK_BLOCK)
-					if (world.getBlock(event.x, event.y, event.z) == Blocks.daylight_detector) {
-						world.setBlock(event.x, event.y, event.z, ModBlocks.invertedDaylightDetector);
-						event.entityPlayer.swingItem();
-					} else if (world.getBlock(event.x, event.y, event.z) == ModBlocks.invertedDaylightDetector) {
-						world.setBlock(event.x, event.y, event.z, Blocks.daylight_detector);
-						event.entityPlayer.swingItem();
-					}
-			}
-
 		if (GanysSurface.enable18Enchants)
 			if (event.action == PlayerInteractEvent.Action.RIGHT_CLICK_BLOCK) {
 				World world = event.world;
@@ -244,31 +219,15 @@ public class MiscEventHandler {
 	}
 
 	@SubscribeEvent
-	public void onHoeUseEvent(UseHoeEvent event) {
-		if (GanysSurface.enableCoarseDirt) {
-			World world = event.world;
-			if (world.getBlock(event.x, event.y, event.z) == ModBlocks.coarseDirt) {
-				world.setBlock(event.x, event.y, event.z, Blocks.dirt);
-				world.playSoundEffect(event.x + 0.5F, event.y + 0.5F, event.z + 0.5F, Block.soundTypeGravel.getStepResourcePath(), 1.0F, 0.8F);
-				event.setResult(Result.ALLOW);
-			}
-		}
-	}
-
-	@SubscribeEvent
 	public void spawnEvent(EntityJoinWorldEvent event) {
 		if (event.entity instanceof EntityPig) {
 			EntityPig pig = (EntityPig) event.entity;
-			if (GanysSurface.enableBeetroots)
-				pig.tasks.addTask(4, new EntityAITempt(pig, 1.2, ModItems.beetroot, false));
 			if (GanysSurface.enablePineCones)
 				pig.tasks.addTask(4, new EntityAITempt(pig, 1.2, ModItems.pineCone, false));
 		} else if (event.entity instanceof EntityChicken) {
 			EntityChicken chicken = (EntityChicken) event.entity;
 			if (GanysSurface.enableTea)
 				chicken.tasks.addTask(3, new EntityAITempt(chicken, 1.0D, ModItems.camelliaSeeds, false));
-			if (GanysSurface.enableBeetroots)
-				chicken.tasks.addTask(3, new EntityAITempt(chicken, 1.0D, ModItems.beetrootSeeds, false));
 			if (GanysSurface.enablePineCones)
 				chicken.tasks.addTask(3, new EntityAITempt(chicken, 1.0D, ModItems.pineNuts, false));
 		}
@@ -281,13 +240,9 @@ public class MiscEventHandler {
 			return;
 
 		if (event.target instanceof EntityPig) {
-			if (stack.getItem() == ModItems.beetroot && GanysSurface.enableBeetroots)
-				setAnimalInLove((EntityPig) event.target, event.entityPlayer, stack);
 			if (stack.getItem() == ModItems.pineCone && GanysSurface.enablePineCones)
 				setAnimalInLove((EntityPig) event.target, event.entityPlayer, stack);
 		} else if (event.target instanceof EntityChicken) {
-			if (stack.getItem() == ModItems.beetrootSeeds && GanysSurface.enableBeetroots)
-				setAnimalInLove((EntityChicken) event.target, event.entityPlayer, stack);
 			if (stack.getItem() == ModItems.camelliaSeeds && GanysSurface.enableTea)
 				setAnimalInLove((EntityChicken) event.target, event.entityPlayer, stack);
 			if (stack.getItem() == ModItems.pineNuts && GanysSurface.enablePineCones)
