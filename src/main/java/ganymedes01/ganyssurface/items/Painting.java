@@ -30,6 +30,10 @@ import net.minecraft.world.World;
 
 public class Painting extends Item implements IConfigurable {
 
+	// The number of arts that ship with Minecraft. Other mods (RiftFlux in GTNH) append their own
+	// entries to EnumArt, and those have their own textures instead of living in the vanilla atlas.
+	public static final int VANILLA_ART_COUNT = 26;
+
 	public Painting() {
 		setMaxDamage(0);
 		setHasSubtypes(true);
@@ -63,6 +67,10 @@ public class Painting extends Item implements IConfigurable {
 
 	public static int getMeta(ItemStack stack) {
 		return Math.max(Math.min(stack.getItemDamage(), EnumArt.values().length - 1), 0);
+	}
+
+	public static boolean isVanillaArt(ItemStack stack) {
+		return getMeta(stack) < VANILLA_ART_COUNT;
 	}
 
 	@Override
