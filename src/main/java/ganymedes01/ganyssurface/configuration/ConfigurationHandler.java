@@ -62,6 +62,7 @@ public class ConfigurationHandler {
 			"Enable wood specific chests",
 			"Enable dynamic texture for wood chests",
 			"Enable wooden ladders",
+			"Enable wooden bookshelves",
 			"Enable 1.8 Enchanting Table",
 			"Enable 1.8 Stone Bricks recipes" };
 
@@ -150,7 +151,6 @@ public class ConfigurationHandler {
 		GanysSurface.enableEndermanDropsBlocks = configBoolean("Enable enderman to drop the blocks they are carrying", true, GanysSurface.enableEndermanDropsBlocks);
 		GanysSurface.enableSlowRail = configBoolean("Enable Slow Rail", true, GanysSurface.enableSlowRail);
 		GanysSurface.enableFlingablePoop = configBoolean("Enable Poop Throwing", false, GanysSurface.enableFlingablePoop);
-		GanysSurface.enableWoodenBookshelves = configBoolean("Enable wooden bookshelves", true, GanysSurface.enableWoodenBookshelves);
 		GanysSurface.enableStorageBlocks = configBoolean("Enable storage blocks", "More specifically: " + BlockStorage.getTypesString(), true, GanysSurface.enableStorageBlocks);
 		GanysSurface.enableDyeBlocks = configBoolean("Enable dye blocks", true, GanysSurface.enableDyeBlocks);
 		GanysSurface.enableNoRecipeConflict = configBoolean("Enable No Recipe Conflict for Crafting Tables", true, GanysSurface.enableNoRecipeConflict);

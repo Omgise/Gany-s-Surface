@@ -9,7 +9,6 @@ import ganymedes01.ganyssurface.blocks.BlockDye;
 import ganymedes01.ganyssurface.blocks.BlockOfPoop;
 import ganymedes01.ganyssurface.blocks.BlockSlowRail;
 import ganymedes01.ganyssurface.blocks.BlockStorage;
-import ganymedes01.ganyssurface.blocks.BlockWoodBookshelf;
 import ganymedes01.ganyssurface.blocks.CamelliaCrop;
 import ganymedes01.ganyssurface.blocks.CharcoalBlock;
 import ganymedes01.ganyssurface.blocks.ChestPropellant;
@@ -73,7 +72,6 @@ public class ModBlocks {
 	public static final Block charcoalBlock = new CharcoalBlock();
 	public static final Block slowRail = new BlockSlowRail();
 	public static final Block blockOfPoop = new BlockOfPoop();
-	public static final Block bookshelf = new BlockWoodBookshelf();
 	public static final BlockStorage storage = new BlockStorage();
 	public static final BlockStorage dye = new BlockDye();
 	public static final Block market = new Market();

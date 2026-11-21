@@ -9,7 +9,6 @@ import ganymedes01.ganyssurface.ModBlocks;
 import ganymedes01.ganyssurface.ModItems;
 import ganymedes01.ganyssurface.lib.Reference;
 import net.minecraft.block.Block;
-import net.minecraft.block.BlockWood;
 import net.minecraft.entity.item.EntityPainting.EnumArt;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
@@ -52,9 +51,6 @@ public class ModRecipes {
 	}
 
 	private static void tweakRecipes() {
-		if (GanysSurface.enableWoodenBookshelves)
-			removeFirstRecipeFor(Blocks.bookshelf);
-
 		removeFirstRecipeFor(Blocks.hopper);
 		addShapedRecipe(new ItemStack(Blocks.hopper), "x x", "xyx", " x ", 'x', "ingotIron", 'y', "chestWood");
 	}
@@ -275,12 +271,6 @@ public class ModRecipes {
 				addShapedRecipe(new ItemStack(ModBlocks.blockOfPoop, 1, i), "xxx", "xxx", "xxx", 'x', new ItemStack(ModItems.poop, 1, i));
 				addShapelessRecipe(new ItemStack(ModItems.poop, 9, i), new ItemStack(ModBlocks.blockOfPoop, 1, i));
 			}
-
-		if (GanysSurface.enableWoodenBookshelves) {
-			for (int i = 0; i < BlockWood.field_150096_a.length - 1; i++)
-				addShapedRecipe(new ItemStack(ModBlocks.bookshelf, 1, i), "xxx", "yyy", "xxx", 'x', new ItemStack(Blocks.planks, 1, i + 1), 'y', new ItemStack(Items.book));
-			addShapedRecipe(new ItemStack(Blocks.bookshelf), "xxx", "yyy", "xxx", 'x', "plankWood", 'y', new ItemStack(Items.book));
-		}
 
 		if (GanysSurface.enableStorageBlocks)
 			for (int i = 0; i < ModBlocks.storage.getBlockNumber(); i++) {

@@ -95,10 +95,6 @@ public class GanysSurface {
 	public static int maxLevelOMCWorks = 15;
 	public static int inkHarvesterMaxStrike = 5;
 	public static int poopingChance = 15000;
-	public static final String[] WOOD_NAMES = new String[] { "oak", "spruce", "birch", "jungle", "acacia", "dark_oak" };
-
-	// WoodStuff
-	public static boolean enableWoodenBookshelves = true;
 
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent event) {

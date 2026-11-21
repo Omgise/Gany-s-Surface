@@ -82,16 +82,18 @@ duplicates — the vanilla blocks and recipes are untouched now):
 | wood-specific chests (6 types) | `BlockWoodChest`, `TileEntityWoodChest`, its block/item/TESR renderers and the "dynamic chest texture" option |
 | wood-specific ladders (5 types) | `BlockWoodLadder` |
 | wood-specific sticks (5 types) | `ModItems.stick`, which existed to craft those ladders |
+| wood-specific bookshelves (5 types) | `BlockWoodBookshelf`, textured per wood type |
 
 Their recipes, ore dictionary entries (`chestWood` / `stickWood` additions) and the
-vanilla-recipe replacements they performed are gone too, so vanilla chest, ladder
-and stick recipes behave exactly as in 1.7.10 again.
+vanilla-recipe replacements they performed are gone too, so vanilla chest, ladder,
+stick and bookshelf recipes behave exactly as in 1.7.10 again. That also removed
+the last user of `GanysSurface.WOOD_NAMES`.
 
-Kept as Gany's Surface content: tea/camellia, poop and rot, wooden armour,
-wood-specific bookshelves, work tables, market, planters, dislocators, encasers,
-item display, ink harvester, rain detector, cushion, chocolate cake, charcoal
-block, slow rail, coloured redstone, storage/dye blocks, wooden wrench, quiver,
-paintings and every other non-1.8 feature.
+Kept as Gany's Surface content: tea/camellia, poop and rot, wooden armour, work
+tables, market, planters, dislocators, encasers, item display, ink harvester, rain
+detector, cushion, chocolate cake, charcoal block, slow rail, coloured redstone,
+storage/dye blocks, wooden wrench, quiver, paintings and every other non-1.8
+feature.
 
 Also dropped as a side effect of the 1.8 cleanup:
 
