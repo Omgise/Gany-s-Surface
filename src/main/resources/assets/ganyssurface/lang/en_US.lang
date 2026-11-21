@@ -199,7 +199,7 @@ string.ganyssurface.attacktocapture=Left-Click a bat or a squid to capture it
 string.ganyssurface.interacttorotate=Right-Click logs,pillars,signs and etc. to rotate
 string.ganyssurface.portableWorktable=Press %s or right-click to open.
 string.ganyssurface.quiver=%dx Arrows
-string.ganyssurface.quiver.line=  %d x %s
+string.ganyssurface.quiver.line=    %d x %s
 
 # Others
 entity.ItemFrame.name=Item Frame

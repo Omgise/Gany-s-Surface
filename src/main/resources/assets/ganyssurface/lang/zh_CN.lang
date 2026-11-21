@@ -193,7 +193,7 @@ string.ganyssurface.attacktocapture=左键一只蝙蝠或鱿鱼来捕捉它
 string.ganyssurface.interacttorotate=右键原木,告示牌或竖纹方块来旋转它们
 string.ganyssurface.portableWorktable=按%s或右键来打开
 string.ganyssurface.quiver=箭筒：%d 支箭
-string.ganyssurface.quiver.line=  %d 支%s
+string.ganyssurface.quiver.line=    %d 支%s
 
 # Others
 entity.ItemFrame.name=物品展示框
