@@ -13,6 +13,7 @@ import ganymedes01.ganyssurface.lib.EnumColour;
 import ganymedes01.ganyssurface.lib.Reference;
 import net.minecraft.block.BlockColored;
 import net.minecraft.entity.passive.EntitySheep;
+import net.minecraftforge.common.config.ConfigCategory;
 import net.minecraftforge.common.config.Configuration;
 
 /**
@@ -27,6 +28,36 @@ public class ConfigurationHandler {
 	public static ConfigurationHandler INSTANCE = new ConfigurationHandler();
 	public Configuration configFile;
 	public String[] usedCategories = { Configuration.CATEGORY_GENERAL, "mod integration", "wool colours" };
+
+	// Options that were dropped together with the blocks and items Et Futurum
+	// Requiem already provides. Forge keeps every key it finds in an existing
+	// config file, so without this list an upgraded instance would keep showing
+	// options that no longer do anything. Keep this in sync when a feature is
+	// removed.
+	private static final String[] OBSOLETE_OPTIONS = {
+			"Enable 1.8 Stones",
+			"Max number of 1.8 stones in a cluster",
+			"Enable Iron Trapdoor",
+			"Enable Mutton",
+			"Enable Prismarine stuff",
+			"Enable 1.8 style doors",
+			"Enable inverted daylight sensor",
+			"Enable coarse dirt",
+			"Enable red sandstone",
+			"Enable 1.8 wood fences",
+			"Enable 1.8 banners",
+			"Enable 1.8 sponge (absorbs water)",
+			"Enable slime block",
+			"Enable MC:PE beetroots",
+			"Enable Silk Touching of mushroom blocks",
+			"Enable Lantern",
+			"Enable Basalt",
+			"Max number of Basalt per cluster",
+			"Enable wooden buttons",
+			"Enable wooden pressure plates",
+			"Enable wooden trapdoors",
+			"Enable wooden signs",
+			"Make fences, gates and deadbushes burnable" };
 
 	private int configInteger(String name, boolean requireRestart, int def) {
 		return configInteger(name, null, requireRestart, def);
@@ -53,6 +84,21 @@ public class ConfigurationHandler {
 		configFile = new Configuration(file);
 
 		syncConfigs();
+		removeObsoleteOptions();
+	}
+
+	private void removeObsoleteOptions() {
+		ConfigCategory general = configFile.getCategory(Configuration.CATEGORY_GENERAL);
+
+		boolean changed = false;
+		for (String option : OBSOLETE_OPTIONS)
+			if (general.containsKey(option)) {
+				general.remove(option);
+				changed = true;
+			}
+
+		if (changed)
+			configFile.save();
 	}
 
 	private void syncConfigs() {
