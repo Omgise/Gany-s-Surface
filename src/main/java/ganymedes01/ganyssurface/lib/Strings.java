@@ -40,7 +40,6 @@ public class Strings {
 	public static final String ENCASING_BENCH_NAME = "encasingBench";
 	public static final String AUTO_ENCASER_NAME = "autoEncaser";
 	public static final String CHARCOAL_BLOCK = "charcoalBlock";
-	public static final String LEAF_WALL = "leafWall";
 	public static final String SLOW_RAIL = "slowRail";
 	public static final String BLOCK_OF_POOP_NAME = "blockOfPoop";
 	public static final String STORAGE = "storage";

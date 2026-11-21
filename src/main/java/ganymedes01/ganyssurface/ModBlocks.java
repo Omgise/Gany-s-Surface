@@ -25,7 +25,6 @@ import ganymedes01.ganyssurface.blocks.FertilizedSoil;
 import ganymedes01.ganyssurface.blocks.InkHarvester;
 import ganymedes01.ganyssurface.blocks.InvertedRedstoneLamp;
 import ganymedes01.ganyssurface.blocks.ItemDisplay;
-import ganymedes01.ganyssurface.blocks.LeafWall;
 import ganymedes01.ganyssurface.blocks.Market;
 import ganymedes01.ganyssurface.blocks.OrganicMatterCompressor;
 import ganymedes01.ganyssurface.blocks.Planter;
@@ -68,7 +67,6 @@ public class ModBlocks {
 	public static final Block farmManager = new FarmManager();
 	public static final Block encasingBench = new EncasingBench();
 	public static final Block autoEncaser = new AutoEncaser();
-	public static final Block leafWall = new LeafWall();
 	public static final Block charcoalBlock = new CharcoalBlock();
 	public static final Block slowRail = new BlockSlowRail();
 	public static final Block blockOfPoop = new BlockOfPoop();

@@ -221,13 +221,6 @@ public class ModRecipes {
 			addShapelessRecipe(new ItemStack(ModBlocks.workTable), "craftingTableWood", "chestWood");
 		}
 
-		if (GanysSurface.enableLeafWalls) {
-			addShapedRecipe(new ItemStack(ModBlocks.leafWall, 4, 0), "x", "x", 'x', new ItemStack(Blocks.leaves, 1, 0));
-			addShapedRecipe(new ItemStack(ModBlocks.leafWall, 4, 1), "x", "x", 'x', new ItemStack(Blocks.leaves, 1, 1));
-			addShapedRecipe(new ItemStack(ModBlocks.leafWall, 4, 2), "x", "x", 'x', new ItemStack(Blocks.leaves, 1, 2));
-			addShapedRecipe(new ItemStack(ModBlocks.leafWall, 4, 3), "x", "x", 'x', new ItemStack(Blocks.leaves, 1, 3));
-		}
-
 		if (GanysSurface.enableEncasers) {
 			addShapedRecipe(new ItemStack(ModBlocks.encasingBench), "xyx", "yzy", "xyx", 'x', "ingotGold", 'y', Blocks.piston, 'z', "chestWood");
 			addShapedRecipe(new ItemStack(ModBlocks.autoEncaser), "xyx", "yzy", "xyx", 'x', "gemDiamond", 'y', Blocks.piston, 'z', ModBlocks.encasingBench);

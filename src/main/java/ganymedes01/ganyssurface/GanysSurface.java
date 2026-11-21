@@ -61,7 +61,6 @@ public class GanysSurface {
 	public static boolean enableCookedEgg = true;
 	public static boolean enablePocketCritters = true;
 	public static boolean enableWorkTables = true;
-	public static boolean enableLeafWalls = true;
 	public static boolean enableEncasers = true;
 	public static boolean enableOMC = true;
 	public static boolean enableSpawnEggs = true;

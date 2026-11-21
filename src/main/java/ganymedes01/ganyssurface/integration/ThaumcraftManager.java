@@ -63,9 +63,6 @@ public class ThaumcraftManager extends Integration {
 				addAspectsToItem(ModBlocks.itemDisplay, i, new Aspect[] { Aspect.CRYSTAL, Aspect.CLOTH }, new int[] { 4, 1 });
 
 
-		if (GanysSurface.enableLeafWalls)
-			addAspectsToItem(ModBlocks.leafWall, new Aspect[] { Aspect.PLANT }, new int[] { 2 });
-
 		if (GanysSurface.enableStorageBlocks)
 			addAspectsToItem(new ItemStack(ModBlocks.storage, 1, BlockStorage.TYPES.sugar.ordinal()), new Aspect[] { Aspect.HUNGER }, new int[] { 6 });
 

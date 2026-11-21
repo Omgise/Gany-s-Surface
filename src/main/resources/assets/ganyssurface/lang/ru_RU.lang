@@ -129,10 +129,6 @@ tile.ganyssurface.dye_orange.name=Блок оранжевого красител
 tile.ganyssurface.dye_white.name=Блок белого красителя
 tile.ganyssurface.market.name=Рынок
 
-tile.ganyssurface.leafWall_0.name=Стена из листвы дуба
-tile.ganyssurface.leafWall_1.name=Стена из листвы ели
-tile.ganyssurface.leafWall_2.name=Стена из листвы берёзы
-tile.ganyssurface.leafWall_3.name=Стена из листвы тропического дерева
 
 tile.ganyssurface.colouredRedstoneBLACK.name=Чёрный камень
 tile.ganyssurface.colouredRedstoneGREEN.name=Зелёный камень
@@ -207,43 +203,3 @@ entity.ItemFrame.name=Предметная рамка
 # Version Check
 versioncheck.ganyssurface.message=§6Модификация §fGany's Surface §cустарела§f.
 versioncheck.ganyssurface.download=Загрузить версию %s
-
-# Banners
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

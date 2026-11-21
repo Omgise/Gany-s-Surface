@@ -39,6 +39,7 @@ dependencies {
     compileOnly("com.github.GTNewHorizons:CodeChickenCore:1.4.22:dev") { transitive = false }
     compileOnly("com.github.GTNewHorizons:NotEnoughItems:2.7.69-GTNH:dev") { transitive = false }
     compileOnly("thaumcraft:Thaumcraft:1.7.10-4.2.3.5:dev") { transitive = false }
+    compileOnly("com.github.GTNewHorizons:Baubles-Expanded:2.2.11-GTNH:dev") { transitive = false }
 
     // NEI is handy in the dev client for checking the recipes of the remaining content.
     runtimeOnlyNonPublishable("com.github.GTNewHorizons:NotEnoughItems:2.7.69-GTNH:dev")

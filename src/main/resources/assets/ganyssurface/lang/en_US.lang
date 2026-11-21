@@ -132,10 +132,6 @@ tile.ganyssurface.market.name=Market
 tile.ganyssurface.inverted_redstone_lamp_on.name=Inverted Redstone Lamp
 tile.ganyssurface.inverted_redstone_lamp_off.name=Inverted Redstone Lamp
 
-tile.ganyssurface.leafWall_0.name=Oak Leaves Wall
-tile.ganyssurface.leafWall_1.name=Spruce Leaves Wall
-tile.ganyssurface.leafWall_2.name=Birch Leaves Wall
-tile.ganyssurface.leafWall_3.name=Jungle Leaves Wall
 
 tile.ganyssurface.colouredRedstoneBLACK.name=Blackstone
 tile.ganyssurface.colouredRedstoneGREEN.name=Greenstone
@@ -203,6 +199,7 @@ string.ganyssurface.attacktocapture=Left-Click a bat or a squid to capture it
 string.ganyssurface.interacttorotate=Right-Click logs,pillars,signs and etc. to rotate
 string.ganyssurface.portableWorktable=Press %s or right-click to open.
 string.ganyssurface.quiver=%dx Arrows
+string.ganyssurface.quiver.tipped=Tipped arrows: %d
 
 # Others
 entity.ItemFrame.name=Item Frame
@@ -210,43 +207,3 @@ entity.ItemFrame.name=Item Frame
 # Version Check
 versioncheck.ganyssurface.message=§6Gany's Surface §fis §coutdated§f.
 versioncheck.ganyssurface.download=Download %s
-
-# Banners
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

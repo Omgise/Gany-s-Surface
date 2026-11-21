@@ -5,6 +5,7 @@ import cpw.mods.fml.common.eventhandler.EventPriority;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import ganymedes01.ganyssurface.GanysSurface;
 import ganymedes01.ganyssurface.ModItems;
+import ganymedes01.ganyssurface.compat.EtFuturumCompat;
 import ganymedes01.ganyssurface.items.Quiver;
 import ganymedes01.ganyssurface.lib.GUIsID;
 import net.minecraft.block.Block;
@@ -48,11 +49,7 @@ public class MiscEventHandler {
 		if (EnchantmentHelper.getEnchantmentLevel(Enchantment.infinity.effectId, stack) > 0)
 			flag = true;
 		else
-			for (int i = 0; i < event.entityPlayer.inventory.getSizeInventory(); i++) {
-				int count = Quiver.getArrowCount(event.entityPlayer.inventory.getStackInSlot(i));
-				if (flag = count > 0)
-					break;
-			}
+			flag = Quiver.countArrows(event.entityPlayer) > 0;
 
 		if (flag) {
 			event.setCanceled(true);
@@ -65,6 +62,10 @@ public class MiscEventHandler {
 		if (event.entityPlayer.inventory.hasItem(Items.arrow) || EnchantmentHelper.getEnchantmentLevel(Enchantment.infinity.effectId, event.bow) > 0)
 			return;
 
+		ItemStack quiver = Quiver.findQuiverWithArrows(event.entityPlayer);
+		if (quiver == null)
+			return;
+
 		float charge = event.charge / 20.0F;
 		charge = (charge * charge + charge * 2.0F) / 3.0F;
 
@@ -73,39 +74,42 @@ public class MiscEventHandler {
 		if (charge > 1.0F)
 			charge = 1.0F;
 
-		for (int i = 0; i < event.entityPlayer.inventory.getSizeInventory(); i++) {
-			ItemStack quiver = event.entityPlayer.inventory.getStackInSlot(i);
-			int count = Quiver.getArrowCount(quiver);
-			if (count > 0) {
+		ItemStack arrowStack = Quiver.peekArrow(quiver);
+		if (arrowStack == null)
+			return;
 
-				EntityArrow arrow = new EntityArrow(event.entityPlayer.worldObj, event.entityPlayer, charge * 2.0F);
+		EntityArrow arrow;
+		if (EtFuturumCompat.isTippedArrow(arrowStack))
+			arrow = EtFuturumCompat.createTippedArrow(event.entityPlayer.worldObj, event.entityPlayer, charge * 2.0F, arrowStack);
+		else
+			arrow = new EntityArrow(event.entityPlayer.worldObj, event.entityPlayer, charge * 2.0F);
 
-				if (charge == 1.0F)
-					arrow.setIsCritical(true);
+		if (arrow == null)
+			return;
 
-				int power = EnchantmentHelper.getEnchantmentLevel(Enchantment.power.effectId, event.bow);
-				if (power > 0)
-					arrow.setDamage(arrow.getDamage() + power * 0.5D + 0.5D);
+		if (charge == 1.0F)
+			arrow.setIsCritical(true);
 
-				int punch = EnchantmentHelper.getEnchantmentLevel(Enchantment.punch.effectId, event.bow);
-				if (punch > 0)
-					arrow.setKnockbackStrength(punch);
+		int power = EnchantmentHelper.getEnchantmentLevel(Enchantment.power.effectId, event.bow);
+		if (power > 0)
+			arrow.setDamage(arrow.getDamage() + power * 0.5D + 0.5D);
 
-				if (EnchantmentHelper.getEnchantmentLevel(Enchantment.flame.effectId, event.bow) > 0)
-					arrow.setFire(100);
+		int punch = EnchantmentHelper.getEnchantmentLevel(Enchantment.punch.effectId, event.bow);
+		if (punch > 0)
+			arrow.setKnockbackStrength(punch);
 
-				event.bow.damageItem(1, event.entityPlayer);
-				event.entityPlayer.worldObj.playSoundAtEntity(event.entityPlayer, "random.bow", 1.0F, 1.0F / (event.entityPlayer.worldObj.rand.nextFloat() * 0.4F + 1.2F) + charge * 0.5F);
+		if (EnchantmentHelper.getEnchantmentLevel(Enchantment.flame.effectId, event.bow) > 0)
+			arrow.setFire(100);
 
-				if (!event.entityPlayer.capabilities.isCreativeMode)
-					Quiver.setArrowCount(quiver, count - 1);
+		event.bow.damageItem(1, event.entityPlayer);
+		event.entityPlayer.worldObj.playSoundAtEntity(event.entityPlayer, "random.bow", 1.0F, 1.0F / (event.entityPlayer.worldObj.rand.nextFloat() * 0.4F + 1.2F) + charge * 0.5F);
 
-				if (!event.entityPlayer.worldObj.isRemote)
-					event.entityPlayer.worldObj.spawnEntityInWorld(arrow);
-				event.setCanceled(true);
-				return;
-			}
-		}
+		if (!event.entityPlayer.capabilities.isCreativeMode)
+			Quiver.consumeArrow(quiver);
+
+		if (!event.entityPlayer.worldObj.isRemote)
+			event.entityPlayer.worldObj.spawnEntityInWorld(arrow);
+		event.setCanceled(true);
 	}
 
 	@SubscribeEvent

@@ -128,10 +128,6 @@ tile.ganyssurface.dye_magenta.name=品红色燃料块
 tile.ganyssurface.dye_orange.name=橙色燃料块
 tile.ganyssurface.dye_white.name=白色燃料块
 tile.ganyssurface.market.name=市场
-tile.ganyssurface.leafWall_0.name=橡树树篱
-tile.ganyssurface.leafWall_1.name=云杉树树篱
-tile.ganyssurface.leafWall_2.name=白桦树树篱
-tile.ganyssurface.leafWall_3.name=丛林树树篱
 
 tile.ganyssurface.colouredRedstoneBLACK.name=黑石
 tile.ganyssurface.colouredRedstoneGREEN.name=绿石
@@ -165,6 +161,9 @@ tile.ganyssurface.colouredRedstoneBlock_13.name=品红石块
 tile.ganyssurface.colouredRedstoneBlock_14.name=橙石块
 tile.ganyssurface.colouredRedstoneBlock_15.name=白石块
 
+tile.ganyssurface.inverted_redstone_lamp_on.name=反向红石灯
+tile.ganyssurface.inverted_redstone_lamp_off.name=反向红石灯
+
 # GUI localizations
 container.ganyssurface.blockDetector=方块检测器
 container.ganyssurface.sensoringDislocator=智能方块采掘机
@@ -193,6 +192,8 @@ string.ganyssurface.pleaseletmefree1=鱿鱼是怎么叫的?
 string.ganyssurface.attacktocapture=左键一只蝙蝠或鱿鱼来捕捉它
 string.ganyssurface.interacttorotate=右键原木,告示牌或竖纹方块来旋转它们
 string.ganyssurface.portableWorktable=按%s或右键来打开
+string.ganyssurface.quiver=箭筒：%d 支箭
+string.ganyssurface.quiver.tipped=药水箭：%d 支
 
 # Others
 entity.ItemFrame.name=物品展示框
@@ -200,5 +201,3 @@ entity.ItemFrame.name=物品展示框
 # Version Check
 versioncheck.ganyssurface.message=§6Gany's Surface §fis §coutdated§f.
 versioncheck.ganyssurface.download=Download %s
-
-# Banners

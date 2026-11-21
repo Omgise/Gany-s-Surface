@@ -59,6 +59,7 @@ public class ConfigurationHandler {
 			"Enable wooden signs",
 			"Make fences, gates and deadbushes burnable",
 			"Enable 3D rendering for vanilla items",
+			"Enable leaf walls",
 			"Enable disguised trapdoors",
 			"Enable wood specific chests",
 			"Enable dynamic texture for wood chests",
@@ -130,7 +131,6 @@ public class ConfigurationHandler {
 		GanysSurface.enableCookedEgg = configBoolean("Enable cooked egg", true, GanysSurface.enableCookedEgg);
 		GanysSurface.enablePocketCritters = configBoolean("Enable pocket critters", true, GanysSurface.enablePocketCritters);
 		GanysSurface.enableWorkTables = configBoolean("Enable work tables", true, GanysSurface.enableWorkTables);
-		GanysSurface.enableLeafWalls = configBoolean("Enable leaf walls", true, GanysSurface.enableLeafWalls);
 		GanysSurface.enableEncasers = configBoolean("Enable encasers", true, GanysSurface.enableEncasers);
 		GanysSurface.enableOMC = configBoolean("Enable organic matter compressor", true, GanysSurface.enableOMC);
 		GanysSurface.enableSpawnEggs = configBoolean("Enable spawn eggs", true, GanysSurface.enableSpawnEggs);

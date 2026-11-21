@@ -139,10 +139,6 @@ tile.ganyssurface.prismarineBlocks0.name=プリズマリン
 tile.ganyssurface.prismarineBlocks1.name=プリズマリンレンガ
 tile.ganyssurface.prismarineBlocks2.name=ダークプリズマリン
 tile.dirt.coarse.name=粗い土
-tile.ganyssurface.leafWall0.name=オークの生垣
-tile.ganyssurface.leafWall1.name=松の生垣
-tile.ganyssurface.leafWall2.name=白樺の生垣
-tile.ganyssurface.leafWall3.name=ジャングルの木の生垣
 tile.ganyssurface.red_sandstone0.name=赤砂岩
 tile.ganyssurface.red_sandstone1.name=模様入りの赤砂岩
 tile.ganyssurface.red_sandstone2.name=滑らかな赤砂岩
@@ -219,43 +215,3 @@ entity.ItemFrame.name=額縁
 # Version Check
 versioncheck.ganyssurface.message=§6Gany's Surface §fis §coutdated§f.
 versioncheck.ganyssurface.download=Download %s
-
-# Banners
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

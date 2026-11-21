@@ -130,10 +130,6 @@ tile.ganyssurface.dye_orange.name=Block aus orangem Farbstoff
 tile.ganyssurface.dye_white.name=Block aus weißem Farbstoff
 tile.ganyssurface.market.name=Markt
 
-tile.ganyssurface.leafWall_0.name=Eichenlaubmauer
-tile.ganyssurface.leafWall_1.name=Fichtenlaubmauer
-tile.ganyssurface.leafWall_2.name=Birkenlaubmauer
-tile.ganyssurface.leafWall_3.name=Tropenlaubmauer
 
 tile.ganyssurface.colouredRedstoneBLACK.name=Blackstone
 tile.ganyssurface.colouredRedstoneGREEN.name=Greenstone
@@ -208,43 +204,3 @@ entity.ItemFrame.name=Rahmen
 # Version Check
 versioncheck.ganyssurface.message=§6Gany's Surface §fist §cveraltet§f.
 versioncheck.ganyssurface.download=Download %s
-
-# Banners
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
