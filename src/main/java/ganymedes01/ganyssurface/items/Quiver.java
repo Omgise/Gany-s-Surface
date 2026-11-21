@@ -182,12 +182,13 @@ public class Quiver extends Item implements IQuiver, IConfigurable {
 
 	private static void writeTipped(ItemStack stack, List<ItemStack> arrows) {
 		NBTTagList list = new NBTTagList();
-		for (ItemStack arrow : arrows)
-			if (arrow != null && arrow.stackSize > 0) {
-				NBTTagCompound entry = new NBTTagCompound();
-				arrow.writeToNBT(entry);
-				list.appendTag(entry);
-			}
+		if (arrows != null)
+			for (ItemStack arrow : arrows)
+				if (arrow != null && arrow.stackSize > 0) {
+					NBTTagCompound entry = new NBTTagCompound();
+					arrow.writeToNBT(entry);
+					list.appendTag(entry);
+				}
 		setTippedList(stack, list);
 	}
 
