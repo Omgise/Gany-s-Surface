@@ -15,7 +15,6 @@ import ganymedes01.ganyssurface.client.renderer.item.ItemIcyPickaxeRenderer;
 import ganymedes01.ganyssurface.client.renderer.item.ItemPaintingRenderer;
 import ganymedes01.ganyssurface.client.renderer.item.ItemPocketCritterRenderer;
 import ganymedes01.ganyssurface.client.renderer.item.ItemStorageCaseRenderer;
-import ganymedes01.ganyssurface.client.renderer.item.vanilla.ItemBedRenderer;
 import ganymedes01.ganyssurface.client.renderer.item.vanilla.ItemBoatRenderer;
 import ganymedes01.ganyssurface.client.renderer.item.vanilla.ItemBrewingStandRenderer;
 import ganymedes01.ganyssurface.client.renderer.item.vanilla.ItemCakeRenderer;
@@ -125,7 +124,6 @@ public class ClientProxy extends CommonProxy {
 			MinecraftForgeClient.registerItemRenderer(Items.command_block_minecart, new ItemMinecartCommandBlockRenderer());
 			MinecraftForgeClient.registerItemRenderer(Items.flower_pot, new ItemFlowerPotRenderer());
 			MinecraftForgeClient.registerItemRenderer(Items.boat, new ItemBoatRenderer());
-			MinecraftForgeClient.registerItemRenderer(Items.bed, new ItemBedRenderer());
 			MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(Blocks.lever), new ItemLeverRenderer());
 			MinecraftForgeClient.registerItemRenderer(Items.cake, new ItemCakeRenderer(Blocks.cake));
 			MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(Blocks.torch), new ItemTorchRenderer());

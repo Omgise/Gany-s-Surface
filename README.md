@@ -73,8 +73,8 @@ config options.
 | `basalt` / polished basalt (+ world gen) | `basalt`, `smooth_basalt` |
 | ocean monument (built out of the removed prismarine/sea lantern blocks) | Et Futurum Requiem's own structure handling |
 
-Removed on request as well (these are Gany's Surface's own content, not Et Futurum
-duplicates — the vanilla blocks and recipes are untouched now):
+Removed on request as well (mostly Gany's Surface's own content; the bed renderer is
+an Et Futurum duplicate):
 
 | Removed | Notes |
 |---|---|
@@ -83,6 +83,7 @@ duplicates — the vanilla blocks and recipes are untouched now):
 | wood-specific ladders (5 types) | `BlockWoodLadder` |
 | wood-specific sticks (5 types) | `ModItems.stick`, which existed to craft those ladders |
 | wood-specific bookshelves (5 types) | `BlockWoodBookshelf`, textured per wood type |
+| 3D bed inventory model | `ItemBedRenderer`; Et Futurum Requiem does the same with `Item3DBedRenderer` (`inventoryBedModels`) |
 
 Their recipes, ore dictionary entries (`chestWood` / `stickWood` additions) and the
 vanilla-recipe replacements they performed are gone too, so vanilla chest, ladder,
