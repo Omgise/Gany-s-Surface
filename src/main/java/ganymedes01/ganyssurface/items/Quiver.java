@@ -70,11 +70,14 @@ public class Quiver extends Item implements IQuiver, IConfigurable {
 	public void addInformation(ItemStack stack, EntityPlayer player, List list, boolean flag) {
 		list.add(StatCollector.translateToLocal(Utils.getString("quiver")));
 
+		List<ItemStack> tipped = readTipped(stack);
 		int plain = getPlainArrowCount(stack);
-		if (plain > 0)
+
+		// An empty quiver still shows "0 x Arrow" so the tooltip never looks broken.
+		if (plain > 0 || tipped.isEmpty())
 			list.add(StatCollector.translateToLocalFormatted(Utils.getString("quiver.line"), plain, StatCollector.translateToLocal("item.arrow.name")));
 
-		for (ItemStack arrow : readTipped(stack))
+		for (ItemStack arrow : tipped)
 			list.add(StatCollector.translateToLocalFormatted(Utils.getString("quiver.line"), arrow.stackSize, arrow.getDisplayName()));
 	}
 
