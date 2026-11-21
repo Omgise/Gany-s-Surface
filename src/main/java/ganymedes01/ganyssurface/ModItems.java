@@ -2,9 +2,9 @@ package ganymedes01.ganyssurface;
 
 import java.lang.reflect.Field;
 
-import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.registry.GameRegistry;
 import ganymedes01.ganyssurface.compat.BaublesCompat;
+import ganymedes01.ganyssurface.compat.ModCompat;
 import ganymedes01.ganyssurface.dispenser.DispenserBahaviourShears;
 import ganymedes01.ganyssurface.dispenser.DispenserBehaviorChargedCreeperSpawner;
 import ganymedes01.ganyssurface.dispenser.DispenserBehaviorHorseSpawner;
@@ -87,7 +87,7 @@ public class ModItems {
 	public static final Item gearalyser = new Gearalyser();
 	public static final Item pineCone = new PineCone();
 	public static final Item pineNuts = new PineNuts();
-	public static final Item quiver = Loader.isModLoaded("Baubles") ? BaublesCompat.createQuiver() : new Quiver();
+	public static final Item quiver = ModCompat.baubles() ? BaublesCompat.createQuiver() : new Quiver();
 	public static final Item painting = new Painting();
 	public static final Item eatenCake = new EatenCake();
 

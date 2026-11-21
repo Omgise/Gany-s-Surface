@@ -3,13 +3,13 @@ package ganymedes01.ganyssurface.items;
 import java.util.ArrayList;
 import java.util.List;
 
-import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.ganyssurface.GanysSurface;
 import ganymedes01.ganyssurface.IConfigurable;
 import ganymedes01.ganyssurface.api.IQuiver;
 import ganymedes01.ganyssurface.compat.BaublesCompat;
+import ganymedes01.ganyssurface.compat.ModCompat;
 import ganymedes01.ganyssurface.compat.EtFuturumCompat;
 import ganymedes01.ganyssurface.core.utils.InventoryUtils;
 import ganymedes01.ganyssurface.core.utils.Utils;
@@ -263,7 +263,7 @@ public class Quiver extends Item implements IQuiver, IConfigurable {
 				return stack;
 		}
 
-		if (Loader.isModLoaded("Baubles")) {
+		if (ModCompat.baubles()) {
 			ItemStack stack = BaublesCompat.getEquippedQuiver(player);
 			if (getArrowCount(stack) > 0)
 				return stack;
@@ -277,7 +277,7 @@ public class Quiver extends Item implements IQuiver, IConfigurable {
 		for (int i = 0; i < player.inventory.getSizeInventory(); i++)
 			total += getArrowCount(player.inventory.getStackInSlot(i));
 
-		if (Loader.isModLoaded("Baubles"))
+		if (ModCompat.baubles())
 			total += getArrowCount(BaublesCompat.getEquippedQuiver(player));
 
 		return total;

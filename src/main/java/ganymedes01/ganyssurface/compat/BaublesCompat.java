@@ -1,6 +1,7 @@
 package ganymedes01.ganyssurface.compat;
 
 import baubles.api.BaublesApi;
+import cpw.mods.fml.common.FMLLog;
 import ganymedes01.ganyssurface.items.Quiver;
 import ganymedes01.ganyssurface.items.QuiverBauble;
 import net.minecraft.entity.player.EntityPlayer;
@@ -24,6 +25,7 @@ public final class BaublesCompat {
 	}
 
 	public static Item createQuiver() {
+		FMLLog.fine("[ganyssurface] Baubles detected - the quiver will accept the quiver/cape/body slots");
 		return new QuiverBauble();
 	}
 

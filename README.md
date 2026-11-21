@@ -117,10 +117,12 @@ Also dropped as a side effect of the 1.8 cleanup:
 The quiver keeps plain arrows as a counter and stores Et Futurum Requiem's
 tipped arrows as NBT stacks (they carry their potion), firing them through EF's
 `EntityTippedArrow`. It implements Baubles-Expanded's `IBaubleExpanded` when that
-mod is installed, accepting the `quiver` and `cape` slots, and the bow handlers
+mod is installed, accepting the `quiver`, `cape` and `body` slots (a default
+Baubles-Expanded setup only assigns `body` of those three), and the bow handlers
 also look for a quiver worn as a bauble. Both integrations are optional at
-runtime: EF is reached by reflection and the Baubles item class is only loaded
-when `Loader.isModLoaded("Baubles")` is true.
+runtime: EF is reached by reflection, the Baubles item class is only loaded when
+its API class is present, and the check uses the class rather than `isModLoaded`
+because the fork's mod id is `Baubles|Expanded`.
 
 ## Upstream
 
