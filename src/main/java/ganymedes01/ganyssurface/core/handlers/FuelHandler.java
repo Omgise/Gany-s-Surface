@@ -24,8 +24,6 @@ public class FuelHandler implements IFuelHandler {
 			return 300;
 		else if (fuel.getItem() == Item.getItemFromBlock(ModBlocks.charcoalBlock))
 			return TileEntityFurnace.getItemBurnTime(new ItemStack(Blocks.coal_block));
-		else if (fuel.getItem() == ModItems.stick)
-			return 100;
 
 		return 0;
 	}

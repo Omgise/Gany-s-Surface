@@ -7,7 +7,6 @@ import cpw.mods.fml.common.Loader;
 import ganymedes01.ganyssurface.GanysSurface;
 import ganymedes01.ganyssurface.ModBlocks;
 import ganymedes01.ganyssurface.ModItems;
-import ganymedes01.ganyssurface.client.renderer.block.BlockChestRenderer;
 import ganymedes01.ganyssurface.client.renderer.block.BlockColouredRedstoneRender;
 import ganymedes01.ganyssurface.client.renderer.block.BlockDualWorkTableRender;
 import ganymedes01.ganyssurface.client.renderer.block.BlockItemDisplayRender;
@@ -16,7 +15,6 @@ import ganymedes01.ganyssurface.client.renderer.item.ItemIcyPickaxeRenderer;
 import ganymedes01.ganyssurface.client.renderer.item.ItemPaintingRenderer;
 import ganymedes01.ganyssurface.client.renderer.item.ItemPocketCritterRenderer;
 import ganymedes01.ganyssurface.client.renderer.item.ItemStorageCaseRenderer;
-import ganymedes01.ganyssurface.client.renderer.item.ItemWoodChestRenderer;
 import ganymedes01.ganyssurface.client.renderer.item.vanilla.ItemBedRenderer;
 import ganymedes01.ganyssurface.client.renderer.item.vanilla.ItemBoatRenderer;
 import ganymedes01.ganyssurface.client.renderer.item.vanilla.ItemBrewingStandRenderer;
@@ -38,7 +36,6 @@ import ganymedes01.ganyssurface.client.renderer.item.vanilla.ItemTorchRenderer;
 import ganymedes01.ganyssurface.client.renderer.tileentity.TileEntityChestPropellantRender;
 import ganymedes01.ganyssurface.client.renderer.tileentity.TileEntityItemDisplayRender;
 import ganymedes01.ganyssurface.client.renderer.tileentity.TileEntityPlanterRender;
-import ganymedes01.ganyssurface.client.renderer.tileentity.TileEntityWoodChestRenderer;
 import ganymedes01.ganyssurface.client.renderer.tileentity.TileEntityWorkTableRender;
 import ganymedes01.ganyssurface.core.handlers.KeyBindingHandler;
 import ganymedes01.ganyssurface.core.handlers.RenderCapeHandler;
@@ -50,7 +47,6 @@ import ganymedes01.ganyssurface.entities.EntityVillageFinder;
 import ganymedes01.ganyssurface.tileentities.TileEntityChestPropellant;
 import ganymedes01.ganyssurface.tileentities.TileEntityItemDisplay;
 import ganymedes01.ganyssurface.tileentities.TileEntityPlanter;
-import ganymedes01.ganyssurface.tileentities.TileEntityWoodChest;
 import ganymedes01.ganyssurface.tileentities.TileEntityWorkTable;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.entity.RenderSnowball;
@@ -91,7 +87,6 @@ public class ClientProxy extends CommonProxy {
 		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityWorkTable.class, new TileEntityWorkTableRender());
 		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityChestPropellant.class, new TileEntityChestPropellantRender());
 		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityPlanter.class, new TileEntityPlanterRender());
-		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityWoodChest.class, new TileEntityWoodChestRenderer());
 	}
 
 	@Override
@@ -115,10 +110,6 @@ public class ClientProxy extends CommonProxy {
 
 		if (GanysSurface.enablePaintings)
 			MinecraftForgeClient.registerItemRenderer(ModItems.painting, new ItemPaintingRenderer());
-
-		if (GanysSurface.enableChests)
-			for (Block chest : ModBlocks.chests)
-				MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(chest), ItemWoodChestRenderer.INSTANCE);
 
 		if (GanysSurface.enable3DRendering) {
 			MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(Blocks.hopper), new ItemHopperRenderer());
@@ -171,7 +162,5 @@ public class ClientProxy extends CommonProxy {
 
 		if (GanysSurface.enablePlanter)
 			RenderingRegistry.registerBlockHandler(new BlockPlanterRender());
-
-		RenderingRegistry.registerBlockHandler(new BlockChestRenderer());
 	}
 }

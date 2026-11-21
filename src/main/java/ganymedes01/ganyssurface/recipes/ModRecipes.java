@@ -52,15 +52,6 @@ public class ModRecipes {
 	}
 
 	private static void tweakRecipes() {
-		if (GanysSurface.enableChests)
-			removeFirstRecipeFor(Blocks.chest);
-
-		if (GanysSurface.enableWoodenLadders)
-			removeFirstRecipeFor(Items.stick);
-
-		if (GanysSurface.enableWoodenLadders)
-			removeFirstRecipeFor(Blocks.ladder);
-
 		if (GanysSurface.enableWoodenBookshelves)
 			removeFirstRecipeFor(Blocks.bookshelf);
 
@@ -84,10 +75,6 @@ public class ModRecipes {
 		if (GanysSurface.enableChocolate)
 			OreDictionary.registerOre("beansCocoa", new ItemStack(Items.dye, 1, 3));
 
-		if (GanysSurface.enableChests)
-			for (Block chest : ModBlocks.chests)
-				OreDictionary.registerOre("chestWood", new ItemStack(chest));
-
 		if (GanysSurface.enableSpawnEggs) {
 			OreDictionary.registerOre("mobEgg", ModItems.chargedCreeperSpawner);
 			OreDictionary.registerOre("mobEgg", new ItemStack(ModItems.horseSpawner, 1, OreDictionary.WILDCARD_VALUE));
@@ -103,9 +90,6 @@ public class ModRecipes {
 
 		if (GanysSurface.enableOMC)
 			OreDictionary.registerOre("itemSkull", new ItemStack(Items.skull, 1, OreDictionary.WILDCARD_VALUE));
-
-		if (GanysSurface.enableWoodenLadders)
-			OreDictionary.registerOre("stickWood", new ItemStack(ModItems.stick, 1, OreDictionary.WILDCARD_VALUE));
 
 		if (GanysSurface.enableStorageBlocks)
 			for (int i = 0; i < ModBlocks.storage.getBlockNumber(); i++)
@@ -202,13 +186,6 @@ public class ModRecipes {
 				addShapedRecipe(new ItemStack(ModItems.painting, 1, i), "xxx", "xyx", "xxx", 'x', "stickWood", 'y', middle);
 			}
 
-		if (GanysSurface.enableWoodenLadders) {
-			for (int i = 0; i < BlockWood.field_150096_a.length - 1; i++)
-				addShapedRecipe(new ItemStack(ModItems.stick, 4, i), "x", "x", 'x', new ItemStack(Blocks.planks, 1, i + 1));
-			addShapedRecipe(new ItemStack(Items.stick, 4), "x", "x", 'x', "plankWood");
-			addShapelessRecipe(new ItemStack(Items.stick), new ItemStack(ModItems.stick, 1, OreDictionary.WILDCARD_VALUE));
-		}
-
 		// Vanilla
 		if (GanysSurface.enableExtraVanillaRecipes) {
 			addShapedRecipe(new ItemStack(Items.clay_ball, 4), "xxx", "yzy", "xxx", 'x', Blocks.gravel, 'y', Blocks.dirt, 'z', Items.water_bucket);
@@ -255,10 +232,6 @@ public class ModRecipes {
 			addShapedRecipe(new ItemStack(ModBlocks.leafWall, 4, 3), "x", "x", 'x', new ItemStack(Blocks.leaves, 1, 3));
 		}
 
-		if (GanysSurface.enableDisguisedTrapdoors)
-			for (int i = 0; i < ModBlocks.disguisedTrapdoors.length; i++)
-				addShapelessRecipe(new ItemStack(ModBlocks.disguisedTrapdoors[i]), new ItemStack(Blocks.planks, 1, i), "trapdoorWood");
-
 		if (GanysSurface.enableEncasers) {
 			addShapedRecipe(new ItemStack(ModBlocks.encasingBench), "xyx", "yzy", "xyx", 'x', "ingotGold", 'y', Blocks.piston, 'z', "chestWood");
 			addShapedRecipe(new ItemStack(ModBlocks.autoEncaser), "xyx", "yzy", "xyx", 'x', "gemDiamond", 'y', Blocks.piston, 'z', ModBlocks.encasingBench);
@@ -289,14 +262,6 @@ public class ModRecipes {
 			addShapelessRecipe(new ItemStack(Items.coal, 9, 1), new ItemStack(ModBlocks.charcoalBlock));
 		}
 
-		if (GanysSurface.enableChests) {
-			for (int i = 0; i < ModBlocks.chests.length; i++) {
-				addShapedRecipe(new ItemStack(ModBlocks.chests[i]), "xxx", "x x", "xxx", 'x', new ItemStack(Blocks.planks, 1, i));
-				addShapelessRecipe(new ItemStack(Blocks.chest), ModBlocks.chests[i]);
-			}
-			addShapedRecipe(new ItemStack(Blocks.chest), "xxx", "x x", "xxx", 'x', "plankWood");
-		}
-
 		if (GanysSurface.enableSlowRail)
 			if (Loader.isModLoaded("Railcraft")) {
 				ItemStack advancedRail = new ItemStack(GameRegistry.findItem("Railcraft", "part.rail"), 1, 1);
@@ -310,12 +275,6 @@ public class ModRecipes {
 				addShapedRecipe(new ItemStack(ModBlocks.blockOfPoop, 1, i), "xxx", "xxx", "xxx", 'x', new ItemStack(ModItems.poop, 1, i));
 				addShapelessRecipe(new ItemStack(ModItems.poop, 9, i), new ItemStack(ModBlocks.blockOfPoop, 1, i));
 			}
-
-		if (GanysSurface.enableWoodenLadders) {
-			for (int i = 0; i < ModBlocks.ladders.length; i++)
-				addShapedRecipe(new ItemStack(ModBlocks.ladders[i], 3), "x x", "xxx", "x x", 'x', new ItemStack(ModItems.stick, 1, i));
-			addShapedRecipe(new ItemStack(Blocks.ladder, 3), "x x", "xxx", "x x", 'x', "stickWood");
-		}
 
 		if (GanysSurface.enableWoodenBookshelves) {
 			for (int i = 0; i < BlockWood.field_150096_a.length - 1; i++)

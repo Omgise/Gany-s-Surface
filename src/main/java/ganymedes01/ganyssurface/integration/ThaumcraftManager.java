@@ -56,12 +56,6 @@ public class ThaumcraftManager extends Integration {
 			addAspectsToItem(new ItemStack(ModItems.horseSpawner, 1, OreDictionary.WILDCARD_VALUE), new Aspect[] { Aspect.SOUL, Aspect.TRAP }, new int[] { 1, 1 });
 			addAspectsToItem(ModItems.chargedCreeperSpawner, new Aspect[] { Aspect.SOUL, Aspect.TRAP }, new int[] { 1, 1 });
 		}
-		if (GanysSurface.enableChests)
-			for (Block chest : ModBlocks.chests)
-				addAspectsToItem(chest, new Aspect[] { Aspect.TREE, Aspect.VOID }, new int[] { 6, 4 });
-		if (GanysSurface.enableDisguisedTrapdoors)
-			for (Block trapdoor : ModBlocks.disguisedTrapdoors)
-				addAspectsToItem(trapdoor, new Aspect[] { Aspect.TREE, Aspect.MOTION }, new int[] { 2, 1 });
 		if (GanysSurface.enableSlowRail)
 			addAspectsToItem(ModBlocks.slowRail, new Aspect[] { Aspect.METAL, Aspect.ENERGY, Aspect.MECHANISM }, new int[] { 2, 1, 1 });
 		if (GanysSurface.enableItemDisplay)

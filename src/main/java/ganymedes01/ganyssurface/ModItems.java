@@ -36,7 +36,6 @@ import ganymedes01.ganyssurface.items.PortableDualWorkTable;
 import ganymedes01.ganyssurface.items.Quiver;
 import ganymedes01.ganyssurface.items.RoastedSquid;
 import ganymedes01.ganyssurface.items.Rot;
-import ganymedes01.ganyssurface.items.Stick;
 import ganymedes01.ganyssurface.items.StorageCase;
 import ganymedes01.ganyssurface.items.TeaBag;
 import ganymedes01.ganyssurface.items.TeaLeaves;
@@ -88,7 +87,6 @@ public class ModItems {
 	public static final Item pineNuts = new PineNuts();
 	public static final Item quiver = new Quiver();
 	public static final Item painting = new Painting();
-	public static final Item stick = new Stick();
 	public static final Item eatenCake = new EatenCake();
 
 	// The 1.8 items used to live here as well: raw/cooked mutton, prismarine

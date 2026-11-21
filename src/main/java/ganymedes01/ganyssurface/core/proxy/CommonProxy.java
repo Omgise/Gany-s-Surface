@@ -58,7 +58,6 @@ import ganymedes01.ganyssurface.tileentities.TileEntityOrganicMatterCompressor;
 import ganymedes01.ganyssurface.tileentities.TileEntityPlanter;
 import ganymedes01.ganyssurface.tileentities.TileEntityRainDetector;
 import ganymedes01.ganyssurface.tileentities.TileEntitySensoringDislocator;
-import ganymedes01.ganyssurface.tileentities.TileEntityWoodChest;
 import ganymedes01.ganyssurface.tileentities.TileEntityWorkTable;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
@@ -113,8 +112,6 @@ public class CommonProxy implements IGuiHandler {
 			GameRegistry.registerTileEntity(TileEntityInkHarvester.class, Utils.getUnlocalisedName(Strings.INK_HARVESTER_NAME));
 		if (GanysSurface.enableEncasers)
 			GameRegistry.registerTileEntity(TileEntityAutoEncaser.class, Utils.getUnlocalisedName(Strings.AUTO_ENCASER_NAME));
-		if (GanysSurface.enableChests)
-			GameRegistry.registerTileEntity(TileEntityWoodChest.class, Utils.getUnlocalisedName("wood_chest"));
 		if (GanysSurface.enableMarket)
 			GameRegistry.registerTileEntity(TileEntityMarket.class, Utils.getUnlocalisedName(Strings.MARKET));
 	}

@@ -63,7 +63,6 @@ public class GanysSurface {
 	public static boolean enablePocketCritters = true;
 	public static boolean enableWorkTables = true;
 	public static boolean enableLeafWalls = true;
-	public static boolean enableDisguisedTrapdoors = true;
 	public static boolean enableEncasers = true;
 	public static boolean enableOMC = true;
 	public static boolean enableSpawnEggs = true;
@@ -82,10 +81,8 @@ public class GanysSurface {
 	public static boolean enableRedyeingBlocks = true;
 	public static boolean enableExtraVanillaRecipes = true;
 	public static boolean enableEndermanDropsBlocks = true;
-	public static boolean enableDynamicTextureChests = false;
 	public static boolean enableSlowRail = true;
 	public static boolean enableFlingablePoop = true;
-	public static boolean enableWoodenLadders = true;
 	public static boolean enableStorageBlocks = true;
 	public static boolean enableDyeBlocks = true;
 	public static boolean enableNoRecipeConflict = true;
@@ -101,7 +98,6 @@ public class GanysSurface {
 	public static final String[] WOOD_NAMES = new String[] { "oak", "spruce", "birch", "jungle", "acacia", "dark_oak" };
 
 	// WoodStuff
-	public static boolean enableChests = true;
 	public static boolean enableWoodenBookshelves = true;
 
 	@EventHandler

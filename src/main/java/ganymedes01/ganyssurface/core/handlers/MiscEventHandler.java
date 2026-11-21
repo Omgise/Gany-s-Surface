@@ -3,11 +3,8 @@ package ganymedes01.ganyssurface.core.handlers;
 
 import cpw.mods.fml.common.eventhandler.EventPriority;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.ganyssurface.GanysSurface;
 import ganymedes01.ganyssurface.ModItems;
-import ganymedes01.ganyssurface.client.renderer.tileentity.TileEntityWoodChestRenderer;
 import ganymedes01.ganyssurface.items.Quiver;
 import ganymedes01.ganyssurface.lib.GUIsID;
 import net.minecraft.block.Block;
@@ -23,7 +20,6 @@ import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
-import net.minecraftforge.client.event.TextureStitchEvent;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.event.entity.player.ArrowLooseEvent;
 import net.minecraftforge.event.entity.player.ArrowNockEvent;
@@ -186,15 +182,5 @@ public class MiscEventHandler {
 				if (--stack.stackSize <= 0)
 					player.inventory.setInventorySlotContents(player.inventory.currentItem, null);
 		}
-	}
-
-	@SubscribeEvent
-	@SideOnly(Side.CLIENT)
-	public void stitchEventPost(TextureStitchEvent.Post event) {
-		if (GanysSurface.enableDynamicTextureChests)
-			if (event.map.getTextureType() == 1) {
-				TileEntityWoodChestRenderer.large_textures.clear();
-				TileEntityWoodChestRenderer.normal_textures.clear();
-			}
 	}
 }

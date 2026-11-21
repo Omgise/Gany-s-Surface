@@ -58,6 +58,10 @@ public class ConfigurationHandler {
 			"Enable wooden trapdoors",
 			"Enable wooden signs",
 			"Make fences, gates and deadbushes burnable",
+			"Enable disguised trapdoors",
+			"Enable wood specific chests",
+			"Enable dynamic texture for wood chests",
+			"Enable wooden ladders",
 			"Enable 1.8 Enchanting Table",
 			"Enable 1.8 Stone Bricks recipes" };
 
@@ -126,7 +130,6 @@ public class ConfigurationHandler {
 		GanysSurface.enablePocketCritters = configBoolean("Enable pocket critters", true, GanysSurface.enablePocketCritters);
 		GanysSurface.enableWorkTables = configBoolean("Enable work tables", true, GanysSurface.enableWorkTables);
 		GanysSurface.enableLeafWalls = configBoolean("Enable leaf walls", true, GanysSurface.enableLeafWalls);
-		GanysSurface.enableDisguisedTrapdoors = configBoolean("Enable disguised trapdoors", true, GanysSurface.enableDisguisedTrapdoors);
 		GanysSurface.enableEncasers = configBoolean("Enable encasers", true, GanysSurface.enableEncasers);
 		GanysSurface.enableOMC = configBoolean("Enable organic matter compressor", true, GanysSurface.enableOMC);
 		GanysSurface.enableSpawnEggs = configBoolean("Enable spawn eggs", true, GanysSurface.enableSpawnEggs);
@@ -145,11 +148,8 @@ public class ConfigurationHandler {
 		GanysSurface.enableRedyeingBlocks = configBoolean("Enable re-dyeing carpets, clay, glass and panes", true, GanysSurface.enableRedyeingBlocks);
 		GanysSurface.enableExtraVanillaRecipes = configBoolean("Enable extra vanilla recipes (for name tags, cobwebs and etc)", true, GanysSurface.enableExtraVanillaRecipes);
 		GanysSurface.enableEndermanDropsBlocks = configBoolean("Enable enderman to drop the blocks they are carrying", true, GanysSurface.enableEndermanDropsBlocks);
-		GanysSurface.enableChests = configBoolean("Enable wood specific chests", true, GanysSurface.enableChests);
-		GanysSurface.enableDynamicTextureChests = configBoolean("Enable dynamic texture for wood chests", true, GanysSurface.enableDynamicTextureChests);
 		GanysSurface.enableSlowRail = configBoolean("Enable Slow Rail", true, GanysSurface.enableSlowRail);
 		GanysSurface.enableFlingablePoop = configBoolean("Enable Poop Throwing", false, GanysSurface.enableFlingablePoop);
-		GanysSurface.enableWoodenLadders = configBoolean("Enable wooden ladders", true, GanysSurface.enableWoodenLadders);
 		GanysSurface.enableWoodenBookshelves = configBoolean("Enable wooden bookshelves", true, GanysSurface.enableWoodenBookshelves);
 		GanysSurface.enableStorageBlocks = configBoolean("Enable storage blocks", "More specifically: " + BlockStorage.getTypesString(), true, GanysSurface.enableStorageBlocks);
 		GanysSurface.enableDyeBlocks = configBoolean("Enable dye blocks", true, GanysSurface.enableDyeBlocks);

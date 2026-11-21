@@ -73,11 +73,25 @@ config options.
 | `basalt` / polished basalt (+ world gen) | `basalt`, `smooth_basalt` |
 | ocean monument (built out of the removed prismarine/sea lantern blocks) | Et Futurum Requiem's own structure handling |
 
-Kept as Gany's Surface content: tea/camellia, poop and rot, wooden armour, wooden
-chests, wooden ladders, wood-specific bookshelves, work tables, market, planters,
-dislocators, encasers, item display, ink harvester, rain detector, cushion,
-chocolate cake, charcoal block, slow rail, coloured redstone, storage/dye blocks,
-wooden wrench, quiver, paintings and every other non-1.8 feature.
+Removed on request as well (these are Gany's Surface's own content, not Et Futurum
+duplicates — the vanilla blocks and recipes are untouched now):
+
+| Removed | Notes |
+|---|---|
+| disguised trapdoors (6 wood types) | trapdoors whose texture mimics a block |
+| wood-specific chests (6 types) | `BlockWoodChest`, `TileEntityWoodChest`, its block/item/TESR renderers and the "dynamic chest texture" option |
+| wood-specific ladders (5 types) | `BlockWoodLadder` |
+| wood-specific sticks (5 types) | `ModItems.stick`, which existed to craft those ladders |
+
+Their recipes, ore dictionary entries (`chestWood` / `stickWood` additions) and the
+vanilla-recipe replacements they performed are gone too, so vanilla chest, ladder
+and stick recipes behave exactly as in 1.7.10 again.
+
+Kept as Gany's Surface content: tea/camellia, poop and rot, wooden armour,
+wood-specific bookshelves, work tables, market, planters, dislocators, encasers,
+item display, ink harvester, rain detector, cushion, chocolate cake, charcoal
+block, slow rail, coloured redstone, storage/dye blocks, wooden wrench, quiver,
+paintings and every other non-1.8 feature.
 
 Also dropped as a side effect of the 1.8 cleanup:
 

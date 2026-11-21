@@ -10,8 +10,6 @@ import ganymedes01.ganyssurface.blocks.BlockOfPoop;
 import ganymedes01.ganyssurface.blocks.BlockSlowRail;
 import ganymedes01.ganyssurface.blocks.BlockStorage;
 import ganymedes01.ganyssurface.blocks.BlockWoodBookshelf;
-import ganymedes01.ganyssurface.blocks.BlockWoodChest;
-import ganymedes01.ganyssurface.blocks.BlockWoodLadder;
 import ganymedes01.ganyssurface.blocks.CamelliaCrop;
 import ganymedes01.ganyssurface.blocks.CharcoalBlock;
 import ganymedes01.ganyssurface.blocks.ChestPropellant;
@@ -20,7 +18,6 @@ import ganymedes01.ganyssurface.blocks.ColouredRedstone;
 import ganymedes01.ganyssurface.blocks.ColouredRedstoneBlock;
 import ganymedes01.ganyssurface.blocks.CubicSensoringDislocator;
 import ganymedes01.ganyssurface.blocks.Cushion;
-import ganymedes01.ganyssurface.blocks.DisguisedTrapdoor;
 import ganymedes01.ganyssurface.blocks.Dislocator;
 import ganymedes01.ganyssurface.blocks.DualWorkTable;
 import ganymedes01.ganyssurface.blocks.EncasingBench;
@@ -38,7 +35,6 @@ import ganymedes01.ganyssurface.blocks.RainDetector;
 import ganymedes01.ganyssurface.blocks.SensoringDislocator;
 import ganymedes01.ganyssurface.blocks.WorkTable;
 import net.minecraft.block.Block;
-import net.minecraft.block.BlockWood;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemBlock;
 
@@ -84,10 +80,6 @@ public class ModBlocks {
 	public static final Block invertedRedstoneLampOff = new InvertedRedstoneLamp(true);
 	public static final Block invertedRedstoneLampOn = new InvertedRedstoneLamp(false);
 
-	public static final Block[] disguisedTrapdoors = new Block[BlockWood.field_150096_a.length];
-	public static final Block[] chests = new Block[BlockWood.field_150096_a.length];
-	public static final Block[] ladders = new Block[BlockWood.field_150096_a.length - 1];
-
 	// The 1.8 wood blocks (doors, fences, fence gates, buttons, pressure plates,
 	// trapdoors, signs) and the other 1.8/1.9 blocks (granite/diorite/andesite,
 	// iron trapdoor, prismarine, sea lantern, inverted daylight detector, red
@@ -96,18 +88,9 @@ public class ModBlocks {
 	// GTNH instance would end up with two of every block; they were removed.
 
 	static {
-		for (int i = 0; i < disguisedTrapdoors.length; i++)
-			disguisedTrapdoors[i] = new DisguisedTrapdoor(i);
-
 		for (int i = 0; i < 16; i++)
 			if (i != 1) // Skip Red
 				colouredRedstone[i] = new ColouredRedstone(i);
-
-		for (int i = 0; i < chests.length; i++)
-			chests[i] = new BlockWoodChest(Blocks.planks, i);
-
-		for (int i = 0; i < ladders.length; i++)
-			ladders[i] = new BlockWoodLadder(i + 1);
 	}
 
 	public static void init() {

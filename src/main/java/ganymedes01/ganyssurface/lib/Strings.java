@@ -18,7 +18,6 @@ public class Strings {
 	public static final String DISLOCATOR_NAME = "dislocator";
 	public static final String SENSORING_DISLOCATOR_NAME = "sensoringDislocator";
 	public static final String CUBIC_SENSORING_DISLOCATOR_NAME = "cubicSensoringDislocator";
-	public static final String DISGUISED_TRAPDOOR_NAME = "disguisedTrapDoor";
 	public static final String WORK_TABLE_NAME = "workTable";
 	public static final String ORGANIC_MATTER_COMPRESSOR_NAME = "organicMatterCompressor";
 	public static final String CUSHION_NAME = "cushion";
@@ -79,7 +78,6 @@ public class Strings {
 	public static final String PINE_NUTS_NAME = "pineNuts";
 	public static final String QUIVER_NAME = "quiver";
 	public static final String PAINTING_NAME = "painting";
-	public static final String STICK_NAME = "stick";
 
 	// Armour names
 	public static final String WOODEN_HELMET_NAME = "woodenHelmet";

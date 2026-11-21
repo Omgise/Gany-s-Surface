@@ -48,7 +48,7 @@ public class GanysSurfaceAPI {
 
 	// BLOCKS
 	/*
-	 * Here's a list of the blocks that can/should be retrieved by this method camelliaCrop rainDetector blockDetector dislocator sensoringDislocator cubicSensoringDislocator disguisedTrapDoorOak disguisedTrapDoorSpruce disguisedTrapDoorBirch disguisedTrapDoorJungle workTable organicMatterCompressor cushion chocolateCake itemDisplay chestPropellant fertilizedSoil planter inkHarvester;
+	 * Here's a list of the blocks that can/should be retrieved by this method camelliaCrop rainDetector blockDetector dislocator sensoringDislocator cubicSensoringDislocator workTable organicMatterCompressor cushion chocolateCake itemDisplay chestPropellant fertilizedSoil planter inkHarvester;
 	 */
 	public static Block getBlock(String blockName) {
 		try {
