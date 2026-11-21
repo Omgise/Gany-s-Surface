@@ -70,10 +70,12 @@ public class Quiver extends Item implements IQuiver, IConfigurable {
 	public void addInformation(ItemStack stack, EntityPlayer player, List list, boolean flag) {
 		list.add(StatCollector.translateToLocalFormatted(Utils.getString("quiver"), getArrowCount(stack)));
 
-		int tipped = getTippedCount(stack);
-		if (tipped > 0)
-			list.add(StatCollector.translateToLocalFormatted(Utils.getString("quiver.tipped"), tipped));
+		int plain = getPlainArrowCount(stack);
+		if (plain > 0)
+			list.add(StatCollector.translateToLocalFormatted(Utils.getString("quiver.line"), plain, StatCollector.translateToLocal("item.arrow.name")));
 
+		for (ItemStack arrow : readTipped(stack))
+			list.add(StatCollector.translateToLocalFormatted(Utils.getString("quiver.line"), arrow.stackSize, arrow.getDisplayName()));
 	}
 
 	@Override
