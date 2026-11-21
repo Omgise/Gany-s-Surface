@@ -58,6 +58,7 @@ public class ConfigurationHandler {
 			"Enable wooden trapdoors",
 			"Enable wooden signs",
 			"Make fences, gates and deadbushes burnable",
+			"Enable 3D rendering for vanilla items",
 			"Enable disguised trapdoors",
 			"Enable wood specific chests",
 			"Enable dynamic texture for wood chests",
@@ -121,7 +122,6 @@ public class ConfigurationHandler {
 		GanysSurface.enableQuiver = configBoolean("enableQuiver", true, GanysSurface.enableQuiver);
 		GanysSurface.enablePaintings = configBoolean("Enable paintings", true, GanysSurface.enablePaintings);
 		GanysSurface.enableDispenserShears = configBoolean("Enable dispenser action for shears", true, GanysSurface.enableDispenserShears);
-		GanysSurface.enable3DRendering = configBoolean("Enable 3D rendering for vanilla items", "Vanilla items (hoppers, minecarts, etc) render in 3D in your inventory", true, GanysSurface.enable3DRendering);
 		GanysSurface.enablePlanter = configBoolean("Enable planter", true, GanysSurface.enablePlanter);
 		GanysSurface.enableColouredRedstone = configBoolean("Enable coloured redsotne", true, GanysSurface.enableColouredRedstone);
 		GanysSurface.enableDislocators = configBoolean("Enable dislocators and block detector", true, GanysSurface.enableDislocators);

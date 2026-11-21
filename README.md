@@ -84,6 +84,7 @@ an Et Futurum duplicate):
 | wood-specific sticks (5 types) | `ModItems.stick`, which existed to craft those ladders |
 | wood-specific bookshelves (5 types) | `BlockWoodBookshelf`, textured per wood type |
 | 3D bed inventory model | `ItemBedRenderer`; Et Futurum Requiem does the same with `Item3DBedRenderer` (`inventoryBedModels`) |
+| 3D inventory models for vanilla items | `enable3DRendering`: hopper, cauldron, brewing stand, repeater, comparator, the five minecart items, boat, flower pot, lever, cake, torches and sign fell back to the vanilla 2D sprites; dropped because the extra renderers cost frame time. `ItemCakeRenderer` stays for Gany's own eaten/chocolate cake items |
 
 Their recipes, ore dictionary entries (`chestWood` / `stickWood` additions) and the
 vanilla-recipe replacements they performed are gone too, so vanilla chest, ladder,

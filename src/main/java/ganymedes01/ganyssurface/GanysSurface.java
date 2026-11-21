@@ -53,7 +53,6 @@ public class GanysSurface {
 	public static boolean poopRandomBonemeals = true;
 	public static boolean enableQuiver = true;
 	public static boolean enablePaintings = true;
-	public static boolean enable3DRendering = true;
 	public static boolean enablePlanter = true;
 	public static boolean enableColouredRedstone = true;
 	public static boolean enableDislocators = true;
