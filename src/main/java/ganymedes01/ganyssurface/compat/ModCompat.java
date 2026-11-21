@@ -8,13 +8,17 @@ package ganymedes01.ganyssurface.compat;
  * {@code Baubles|Expanded}, not {@code Baubles}), while the API package stays stable.
  *
  * This class deliberately references no optional-mod type, so it is safe to load when the
- * other mod is missing.
+ * other mod is missing. The answers are cached because these checks sit on hot paths
+ * (every bow draw and every shot).
  *
  * @author ganymedes01
  *
  */
 
 public final class ModCompat {
+
+	private static Boolean baubles;
+	private static Boolean etFuturum;
 
 	private ModCompat() {
 	}
@@ -29,10 +33,14 @@ public final class ModCompat {
 	}
 
 	public static boolean baubles() {
-		return isClassPresent("baubles.api.BaublesApi");
+		if (baubles == null)
+			baubles = isClassPresent("baubles.api.BaublesApi");
+		return baubles;
 	}
 
 	public static boolean etFuturum() {
-		return isClassPresent("ganymedes01.etfuturum.items.ItemArrowTipped");
+		if (etFuturum == null)
+			etFuturum = isClassPresent("ganymedes01.etfuturum.items.ItemArrowTipped");
+		return etFuturum;
 	}
 }

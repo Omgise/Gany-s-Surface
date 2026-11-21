@@ -25,7 +25,7 @@ public final class BaublesCompat {
 	}
 
 	public static Item createQuiver() {
-		FMLLog.fine("[ganyssurface] Baubles detected - the quiver will accept the quiver/cape/body slots");
+		FMLLog.fine("[ganyssurface] Baubles detected - the quiver will accept the body (back) slot");
 		return new QuiverBauble();
 	}
 

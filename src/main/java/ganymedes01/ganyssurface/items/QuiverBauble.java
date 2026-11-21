@@ -22,10 +22,9 @@ public class QuiverBauble extends Quiver implements IBaubleExpanded {
 
 	@Override
 	public String[] getBaubleTypes(ItemStack stack) {
-		// "quiver" and "cape" are the obvious slots, but a default Baubles-Expanded setup only
-		// assigns body/charm/head/wings/... so "body" (the torso slot) is what players will
-		// actually have free for a back-worn quiver.
-		return new String[] { BaubleExpandedSlots.quiverType, BaubleExpandedSlots.capeType, BaubleExpandedSlots.bodyType };
+		// Only the torso ("body" / 背饰) slot. "quiver" and "cape" are not assigned by a default
+		// Baubles-Expanded config, and offering several types only clutters the tooltip.
+		return new String[] { BaubleExpandedSlots.bodyType };
 	}
 
 	@Override
