@@ -213,7 +213,7 @@ public class GuiEnchantment extends GuiContainer {
 			int var9 = var6 + 1;
 
 			if (func_146978_c(60, 14 + 19 * var6, 108, 17, mouseX, mouseY) && var7 > 0 && var8 >= 0) {
-				ArrayList<Object> var10 = Lists.newArrayList();
+				ArrayList<String> var10 = Lists.newArrayList();
 				String var11;
 				if (var8 >= 0 && Enchantment.enchantmentsList[var8 & 255] != null) {
 					var11 = Enchantment.enchantmentsList[var8 & 255].getTranslatedName((var8 & 65280) >> 8);

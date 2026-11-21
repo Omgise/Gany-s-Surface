@@ -83,9 +83,9 @@ public class TileEntityInkHarvester extends GanysInventory implements ISidedInve
 	}
 
 	private void killOneSquid() {
-		List<Entity> list = getSquids();
+		List<EntitySquid> list = getSquids();
 		if (!list.isEmpty())
-			((EntitySquid) list.iterator().next()).attackEntityFrom(DamageSource.starve, 11.0F);
+			list.iterator().next().attackEntityFrom(DamageSource.starve, 11.0F);
 
 		isFormed();
 	}
@@ -115,11 +115,11 @@ public class TileEntityInkHarvester extends GanysInventory implements ISidedInve
 	}
 
 	private boolean hasSquids() {
-		List<Entity> list = getSquids();
+		List<EntitySquid> list = getSquids();
 		if (!list.isEmpty()) {
-			Iterator<Entity> iterator = list.iterator();
+			Iterator<EntitySquid> iterator = list.iterator();
 			while (iterator.hasNext()) {
-				EntitySquid squid = (EntitySquid) iterator.next();
+				EntitySquid squid = iterator.next();
 				if (!squid.isNoDespawnRequired())
 					squid.func_110163_bv();
 			}
@@ -129,7 +129,7 @@ public class TileEntityInkHarvester extends GanysInventory implements ISidedInve
 	}
 
 	@SuppressWarnings("unchecked")
-	private List<Entity> getSquids() {
+	private List<EntitySquid> getSquids() {
 		int minY, maxY;
 		if (worldObj.getBlock(xCoord, yCoord - 1, zCoord) == Blocks.water) {
 			minY = -3;
