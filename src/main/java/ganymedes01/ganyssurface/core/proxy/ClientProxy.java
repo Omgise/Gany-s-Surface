@@ -9,9 +9,6 @@ import ganymedes01.ganyssurface.ModBlocks;
 import ganymedes01.ganyssurface.ModItems;
 import ganymedes01.ganyssurface.client.renderer.block.BlockColouredRedstoneRender;
 import ganymedes01.ganyssurface.client.renderer.entity.QuiverPlayerRenderer;
-import ganymedes01.ganyssurface.client.renderer.entity.QuiverRenderConfig;
-import ganymedes01.ganyssurface.core.commands.CommandQuiverOffsets;
-import net.minecraftforge.client.ClientCommandHandler;
 import ganymedes01.ganyssurface.client.renderer.block.BlockDualWorkTableRender;
 import ganymedes01.ganyssurface.client.renderer.block.BlockItemDisplayRender;
 import ganymedes01.ganyssurface.client.renderer.block.BlockPlanterRender;
@@ -66,9 +63,6 @@ public class ClientProxy extends CommonProxy {
 			MinecraftForge.EVENT_BUS.register(new RenderCapeHandler());
 
 		MinecraftForge.EVENT_BUS.register(new QuiverPlayerRenderer());
-
-		QuiverRenderConfig.load();
-		ClientCommandHandler.instance.registerCommand(new CommandQuiverOffsets());
 	}
 
 	@Override
