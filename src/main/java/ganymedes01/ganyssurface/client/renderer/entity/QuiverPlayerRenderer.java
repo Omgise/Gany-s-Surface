@@ -42,11 +42,6 @@ public class QuiverPlayerRenderer {
 	private static final float PIVOT_Y = 0.75F;
 	private static final float RAD_TO_DEG = 180.0F / (float) Math.PI;
 
-	private static final float SCALE = 0.45F;
-	private static final float OFFSET_X = -0.02F;
-	private static final float OFFSET_Y = -0.25F;
-	private static final float OFFSET_Z = -0.12F;
-
 	@SubscribeEvent
 	public void onRenderSpecialsPre(RenderPlayerEvent.Specials.Pre event) {
 		EntityPlayer player = event.entityPlayer;
@@ -90,8 +85,8 @@ public class QuiverPlayerRenderer {
 			GL11.glTranslatef(0.0F, -PIVOT_Y, 0.0F);
 
 			GL11.glRotatef(180.0F, 1.0F, 0.0F, 0.0F);
-			GL11.glTranslatef(OFFSET_X, OFFSET_Y, OFFSET_Z);
-			GL11.glScalef(SCALE, SCALE, SCALE);
+			GL11.glTranslatef(QuiverRenderConfig.x, QuiverRenderConfig.y, QuiverRenderConfig.z);
+			GL11.glScalef(QuiverRenderConfig.scale, QuiverRenderConfig.scale, QuiverRenderConfig.scale);
 			GL11.glTranslatef(-0.5F, -0.5F, 0.0F);
 
 			Minecraft.getMinecraft().getTextureManager().bindTexture(TextureMap.locationItemsTexture);
