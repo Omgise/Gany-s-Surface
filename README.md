@@ -114,17 +114,24 @@ Also dropped as a side effect of the 1.8 cleanup:
 
 ## Quiver
 
-The quiver keeps plain arrows as a counter and stores Et Futurum Requiem's
-tipped arrows as NBT stacks (they carry their potion), firing them through EF's
-`EntityTippedArrow`. The tooltip lists the contents one line per type, using each
-arrow's own display name so the client language applies; an empty quiver still
-shows a zero line:
+The quiver keeps plain arrows as a counter, Et Futurum Requiem's tipped arrows as
+NBT stacks (they carry their potion, fired through EF's `EntityTippedArrow`), and
+the Weapon Mod's crossbow bolts as a third list. The tooltip lists the contents one
+line per type, using each item's own display name so the client language applies;
+an empty quiver says so in one line instead of a row of zeroes:
 
 ```
 箭筒:
 64 x 箭
 64 x 反胃之箭
-64 x 虚弱之箭
+64 x 弩箭
+```
+
+and when nothing is stored:
+
+```
+箭筒:
+空
 ```
 
 It implements Baubles-Expanded's `IBaubleExpanded` when that

@@ -200,6 +200,7 @@ string.ganyssurface.interacttorotate=Right-Click logs,pillars,signs and etc. to 
 string.ganyssurface.portableWorktable=Press %s or right-click to open.
 string.ganyssurface.quiver=Quiver:
 string.ganyssurface.quiver.line=%d x %s
+string.ganyssurface.quiver.empty=Empty
 
 # Others
 entity.ItemFrame.name=Item Frame

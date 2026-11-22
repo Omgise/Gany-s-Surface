@@ -194,6 +194,7 @@ string.ganyssurface.interacttorotate=右键原木,告示牌或竖纹方块来旋
 string.ganyssurface.portableWorktable=按%s或右键来打开
 string.ganyssurface.quiver=箭筒：
 string.ganyssurface.quiver.line=%d x %s
+string.ganyssurface.quiver.empty=空
 
 # Others
 entity.ItemFrame.name=物品展示框

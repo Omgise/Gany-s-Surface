@@ -79,17 +79,23 @@ public class Quiver extends Item implements IQuiver, IConfigurable {
 		list.add(StatCollector.translateToLocal(Utils.getString("quiver")));
 
 		List<ItemStack> tipped = readTipped(stack);
+		List<ItemStack> ammo = readAmmo(stack);
 		int plain = getPlainArrowCount(stack);
 
-		// An empty quiver still shows "0 x Arrow" so the tooltip never looks broken.
-		if (plain > 0 || tipped.isEmpty())
+		// Nothing at all gets a single "Empty" line; a row of zeroes would just be noise.
+		if (plain <= 0 && tipped.isEmpty() && ammo.isEmpty()) {
+			list.add(StatCollector.translateToLocal(Utils.getString("quiver.empty")));
+			return;
+		}
+
+		if (plain > 0)
 			list.add(StatCollector.translateToLocalFormatted(Utils.getString("quiver.line"), plain, StatCollector.translateToLocal("item.arrow.name")));
 
 		for (ItemStack arrow : tipped)
 			list.add(StatCollector.translateToLocalFormatted(Utils.getString("quiver.line"), arrow.stackSize, arrow.getDisplayName()));
 
-		for (ItemStack ammo : readAmmo(stack))
-			list.add(StatCollector.translateToLocalFormatted(Utils.getString("quiver.line"), ammo.stackSize, ammo.getDisplayName()));
+		for (ItemStack stored : ammo)
+			list.add(StatCollector.translateToLocalFormatted(Utils.getString("quiver.line"), stored.stackSize, stored.getDisplayName()));
 	}
 
 	@Override
