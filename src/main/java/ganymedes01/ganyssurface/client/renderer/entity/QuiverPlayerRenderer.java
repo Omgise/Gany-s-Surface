@@ -9,14 +9,13 @@ import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.ganyssurface.GanysSurface;
 import ganymedes01.ganyssurface.compat.BaublesCompat;
 import ganymedes01.ganyssurface.compat.ModCompat;
-import ganymedes01.ganyssurface.items.Quiver;
-import ganymedes01.ganyssurface.lib.Reference;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.ItemRenderer;
 import net.minecraft.client.renderer.Tessellator;
+import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.IIcon;
 import net.minecraftforge.client.event.RenderPlayerEvent;
 
 /**
@@ -28,9 +27,8 @@ import net.minecraftforge.client.event.RenderPlayerEvent;
  * move it behind the torso, then draw it with ItemRenderer.renderItemIn2D so it gets a little
  * depth instead of being a paper-thin billboard.
  *
- * The texture follows the contents: the vanilla-domain "quiver" (which texture packs such as
- * Modernity draw with arrows) while it holds arrows, the mod's own empty quiver otherwise. If no
- * pack supplies that texture the empty one is used for both states.
+ * It renders the item's own icon, so the back always matches what the item shows in the inventory
+ * (the empty quiver art, the with-arrows art, and whatever a resource pack overrides on top).
  *
  * @author ganymedes01
  *
@@ -39,14 +37,9 @@ import net.minecraftforge.client.event.RenderPlayerEvent;
 @SideOnly(Side.CLIENT)
 public class QuiverPlayerRenderer {
 
-	private static final ResourceLocation EMPTY_TEXTURE = new ResourceLocation(Reference.MOD_ID + ":textures/items/quiver.png");
-	private static final ResourceLocation PACKED_TEXTURE = new ResourceLocation("minecraft", "textures/items/quiver.png");
-
 	private static final float SCALE = 0.55F;
 	private static final float OFFSET_Y = -0.6F;
 	private static final float OFFSET_Z = -0.25F;
-
-	private static Boolean hasPackedTexture;
 
 	@SubscribeEvent
 	public void onRenderSpecials(RenderPlayerEvent.Specials.Post event) {
@@ -59,6 +52,10 @@ public class QuiverPlayerRenderer {
 
 		ItemStack quiver = BaublesCompat.getEquippedQuiver(player);
 		if (quiver == null)
+			return;
+
+		IIcon icon = quiver.getItem().getIcon(quiver, 0);
+		if (icon == null)
 			return;
 
 		GL11.glPushAttrib(GL11.GL_ENABLE_BIT | GL11.GL_CURRENT_BIT);
@@ -81,28 +78,13 @@ public class QuiverPlayerRenderer {
 			GL11.glScalef(SCALE, SCALE, SCALE);
 			GL11.glTranslatef(-0.5F, -0.5F, 0.0F);
 
-			Minecraft.getMinecraft().getTextureManager().bindTexture(textureFor(quiver));
+			Minecraft.getMinecraft().getTextureManager().bindTexture(TextureMap.locationItemsTexture);
 			GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-			ItemRenderer.renderItemIn2D(Tessellator.instance, 1.0F, 0.0F, 0.0F, 1.0F, 16, 16, 0.0625F);
+			ItemRenderer.renderItemIn2D(Tessellator.instance, icon.getMaxU(), icon.getMinV(), icon.getMinU(), icon.getMaxV(),
+					icon.getIconWidth(), icon.getIconHeight(), 0.0625F);
 		} finally {
 			GL11.glPopMatrix();
 			GL11.glPopAttrib();
 		}
-	}
-
-	private static ResourceLocation textureFor(ItemStack quiver) {
-		if (Quiver.getArrowCount(quiver) <= 0)
-			return EMPTY_TEXTURE;
-
-		if (hasPackedTexture == null) {
-			hasPackedTexture = Boolean.FALSE;
-			try {
-				Minecraft.getMinecraft().getResourceManager().getResource(PACKED_TEXTURE);
-				hasPackedTexture = Boolean.TRUE;
-			} catch (Exception ignored) {
-			}
-		}
-
-		return hasPackedTexture.booleanValue() ? PACKED_TEXTURE : EMPTY_TEXTURE;
 	}
 }
