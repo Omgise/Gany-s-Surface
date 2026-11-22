@@ -139,9 +139,8 @@ While a quiver is worn it is drawn on the player's back, from the item's own ico
 so the empty art and the with-arrows art (texture packs such as Modernity draw the
 latter at `minecraft:quiver`) always match the inventory. The sprite leans with the
 torso pose, which carries it through vanilla sneaking and EvenMoBends' animated
-body, and the cape is hidden while the quiver occupies that spot. Its placement can
-be tuned in game with `/quiveroffsets <scale> <x> <y> <z>` (or `reset`), which is
-saved to `config/ganyssurface-quiver.txt`.
+body, and the cape is hidden while the quiver occupies that spot. Its placement is
+a constant in `QuiverPlayerRenderer` (`SCALE` / `OFFSET_X` / `OFFSET_Y` / `OFFSET_Z`).
 
 ## Upstream
 
