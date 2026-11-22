@@ -116,7 +116,18 @@ Also dropped as a side effect of the 1.8 cleanup:
 
 The quiver keeps plain arrows as a counter and stores Et Futurum Requiem's
 tipped arrows as NBT stacks (they carry their potion), firing them through EF's
-`EntityTippedArrow`. It implements Baubles-Expanded's `IBaubleExpanded` when that
+`EntityTippedArrow`. The tooltip lists the contents one line per type, using each
+arrow's own display name so the client language applies; an empty quiver still
+shows a zero line:
+
+```
+箭筒:
+64 x 箭
+64 x 反胃之箭
+64 x 虚弱之箭
+```
+
+It implements Baubles-Expanded's `IBaubleExpanded` when that
 mod is installed, accepting only the `body` (back/torso) slot — the one a default
 Baubles-Expanded setup actually assigns — and the bow handlers also look for a
 quiver worn as a bauble. Both integrations are optional at
