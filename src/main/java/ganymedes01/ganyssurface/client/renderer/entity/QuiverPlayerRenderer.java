@@ -38,7 +38,7 @@ import net.minecraftforge.client.event.RenderPlayerEvent;
 public class QuiverPlayerRenderer {
 
 	private static final float SCALE = 0.55F;
-	private static final float OFFSET_Y = -0.6F;
+	private static final float OFFSET_Y = -0.95F;
 	private static final float OFFSET_Z = -0.25F;
 
 	@SubscribeEvent
