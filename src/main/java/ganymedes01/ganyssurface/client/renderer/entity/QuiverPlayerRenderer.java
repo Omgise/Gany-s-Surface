@@ -9,11 +9,13 @@ import cpw.mods.fml.relauncher.SideOnly;
 import ganymedes01.ganyssurface.GanysSurface;
 import ganymedes01.ganyssurface.compat.BaublesCompat;
 import ganymedes01.ganyssurface.compat.ModCompat;
+import ganymedes01.ganyssurface.items.Quiver;
 import ganymedes01.ganyssurface.lib.Reference;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.ItemRenderer;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.event.RenderPlayerEvent;
 
@@ -24,7 +26,8 @@ import net.minecraftforge.client.event.RenderPlayerEvent;
  * follows the approach Inmis uses for its backpacks on 1.7.10 (the specials event still has the
  * player's body transform active): flip 180 degrees around X so the item quad faces backwards,
  * move it behind the torso, then draw it with ItemRenderer.renderItemIn2D so it gets a little
- * depth instead of being a paper-thin billboard.
+ * depth instead of being a paper-thin billboard. The texture follows the contents: the with-arrows
+ * art while it holds arrows, the empty one otherwise.
  *
  * @author ganymedes01
  *
@@ -33,7 +36,8 @@ import net.minecraftforge.client.event.RenderPlayerEvent;
 @SideOnly(Side.CLIENT)
 public class QuiverPlayerRenderer {
 
-	private static final ResourceLocation TEXTURE = new ResourceLocation(Reference.MOD_ID + ":textures/items/quiver.png");
+	private static final ResourceLocation EMPTY_TEXTURE = new ResourceLocation(Reference.MOD_ID + ":textures/items/quiver.png");
+	private static final ResourceLocation FULL_TEXTURE = new ResourceLocation(Reference.MOD_ID + ":textures/items/quiver_full.png");
 
 	private static final float SCALE = 0.55F;
 	private static final float OFFSET_Y = -0.6F;
@@ -48,7 +52,8 @@ public class QuiverPlayerRenderer {
 		if (player == null || player.isInvisible())
 			return;
 
-		if (BaublesCompat.getEquippedQuiver(player) == null)
+		ItemStack quiver = BaublesCompat.getEquippedQuiver(player);
+		if (quiver == null)
 			return;
 
 		GL11.glPushAttrib(GL11.GL_ENABLE_BIT | GL11.GL_CURRENT_BIT);
@@ -71,7 +76,7 @@ public class QuiverPlayerRenderer {
 			GL11.glScalef(SCALE, SCALE, SCALE);
 			GL11.glTranslatef(-0.5F, -0.5F, 0.0F);
 
-			Minecraft.getMinecraft().getTextureManager().bindTexture(TEXTURE);
+			Minecraft.getMinecraft().getTextureManager().bindTexture(Quiver.getArrowCount(quiver) > 0 ? FULL_TEXTURE : EMPTY_TEXTURE);
 			GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
 			ItemRenderer.renderItemIn2D(Tessellator.instance, 1.0F, 0.0F, 0.0F, 1.0F, 16, 16, 0.0625F);
 		} finally {

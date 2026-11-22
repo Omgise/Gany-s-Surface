@@ -41,12 +41,14 @@ public class Quiver extends Item implements IQuiver, IConfigurable {
 	@SideOnly(Side.CLIENT)
 	private IIcon empty;
 
+	@SideOnly(Side.CLIENT)
+	private IIcon full;
+
 	public static int ARROW_STACK_SIZE = 64;
 
 	public Quiver() {
 		setFull3D();
 		setMaxStackSize(1);
-		setTextureName("quiver");
 		setUnlocalizedName(Utils.getUnlocalisedName(Strings.QUIVER_NAME));
 		setCreativeTab(GanysSurface.enableQuiver ? GanysSurface.surfaceTab : null);
 	}
@@ -84,14 +86,16 @@ public class Quiver extends Item implements IQuiver, IConfigurable {
 	@Override
 	@SideOnly(Side.CLIENT)
 	public void registerIcons(IIconRegister reg) {
-		super.registerIcons(reg);
+		// Not super.registerIcons: the item has two states and no use for a default icon.
 		empty = reg.registerIcon(Utils.getItemTexture(Strings.QUIVER_NAME));
+		full = reg.registerIcon(Utils.getItemTexture(Strings.QUIVER_NAME + "_full"));
+		itemIcon = empty;
 	}
 
 	@Override
 	@SideOnly(Side.CLIENT)
 	public IIcon getIconFromDamage(int meta) {
-		return meta <= 0 ? empty : itemIcon;
+		return meta <= 0 ? empty : full;
 	}
 
 	@Override
