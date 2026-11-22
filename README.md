@@ -185,11 +185,12 @@ directly, so the mixin above cannot reach them. The quiver gets a second,
   blowgun) accepts quiver ammo, so right-click starts the reload;
 * `hasAmmoAndConsume` — the released shot spends one round from the quiver.
 
-What counts as ammo is read from the weapons themselves
-(`RangedComponent.getAmmoItems()`), so it is the whole set: crossbow bolts, musket
-bullets, shotgun shot, mortar shells and blowgun darts. They go into their own NBT
-list, leave the arrow counter alone, share the quiver's capacity with the arrows,
-and appear in the tooltip and in the sneak-click dump like everything else.
+What counts as ammo is read from the crossbow itself
+(`RangedComponent.getAmmoItems()`), so it is exactly **crossbow bolts** — the mod's other
+ranged weapons (musket, blunderbuss, flintlock, mortar, blowgun) are firearms and keep
+their own cartridges out of the quiver. Bolts go into their own NBT list, leave the arrow
+counter alone, share the quiver's capacity with the arrows, and appear in the tooltip and
+in the sneak-click dump like everything else.
 
 Bows that keep a private ammo model of their own (RiftFlux's World Explorer Long
 Bow, which reads the main inventory directly and then its own quiver) are still not
@@ -234,9 +235,9 @@ RiftFlux 的 More Bows / 灼热弓、LegendGear 都能只靠腰带上的箭筒�
 **箭筒装弩箭（Balkon's Weapon Mod / 更多武器）**：它的远程武器不走 `InventoryPlayer`，而是
 `WMItem.findAnyItemSlot` 扫背包、直接从 `mainInventory` 扣弹药，所以上面那个 mixin 够不着。
 新增**晚加载**的 `MixinWeaponModRangedComponent`（`LateMixins` 注册，只在装了 `weaponmod`
-时生效）：`hasAmmo` 让重弩（以及火枪、散弹枪、燧发枪、迫击炮、吹箭筒）把箭筒当成弹药来源、
-右键能上膛；`hasAmmoAndConsume` 松手时从箭筒扣一发。哪些物品算弹药直接问武器自己
-（`RangedComponent.getAmmoItems()`），所以整套都认：弩箭、火枪子弹、散弹、迫击炮弹、吹箭。
-它们单独存在 `Ammo` 里，不碰箭矢计数，和箭共用箭筒容量，提示框和潜行右键倒出都会列出来。
+时生效）：`hasAmmo` 让重弩把箭筒当成弹药来源、右键能上膛；`hasAmmoAndConsume` 松手时从箭筒
+扣一发。算弹药的物品直接问重弩自己（`RangedComponent.getAmmoItems()`），所以**只收弩箭**——
+那个模组的火枪、散弹枪、燧发枪、迫击炮、吹箭筒属于枪械/吹箭，不占箭筒。弩箭单独存在 `Ammo`
+里，不碰箭矢计数，和箭共用箭筒容量，提示框和潜行右键倒出都会列出来。
 
 像 RiftFlux 的 World Explorer 长弓那种自己扫主背包、再找自家箭筒的弓仍然不在适配范围内。

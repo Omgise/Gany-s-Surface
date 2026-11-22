@@ -8,6 +8,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import cpw.mods.fml.common.registry.GameRegistry;
 import ganymedes01.ganyssurface.items.Quiver;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
@@ -16,13 +17,18 @@ import net.minecraft.item.ItemStack;
 /**
  * Gany's Surface
  *
- * Balkon's Weapon Mod bridge. The quiver accepts that mod's ranged ammo (the heavy crossbow's
- * bolts, and the bullets / shot / shells / darts of its other guns) and
- * {@code MixinWeaponModRangedComponent} lets those weapons spend it straight out of the quiver.
+ * Balkon's Weapon Mod bridge, for the heavy crossbow only: the quiver accepts crossbow bolts and
+ * {@code MixinWeaponModRangedComponent} lets the crossbow spend them straight out of the quiver.
  *
- * Everything here is reflective, so the mod loads without the Weapon Mod installed. The ammo
- * lists come from the weapons themselves ({@code RangedComponent.getAmmoItems()}), which resolves
- * its registry names lazily - that is why the set is collected on first use, not at class load.
+ * <p>
+ * Only the crossbow's own ammo list is exposed, not the union of every ranged weapon's: the other
+ * guns have their own cartridges (musket bullets, shotgun shot, mortar shells, blowgun darts) and
+ * those are deliberately kept out of the quiver. The list is read from the crossbow item itself
+ * ({@code RangedComponent.getAmmoItems()}) so a config that renames or disables it still works.
+ *
+ * <p>
+ * Everything here is reflective, so the mod loads without the Weapon Mod installed. The ammo list
+ * resolves its registry names lazily - that is why it is collected on first use, not at class load.
  *
  * @author ganymedes01
  *
@@ -34,7 +40,7 @@ public final class WeaponModCompat {
 	private static Class<?> shooterClass;
 	private static Field rangedComponentField;
 	private static Method getAmmoItems;
-	private static Set<Item> ammoTypes;
+	private static Set<Item> boltTypes;
 
 	private WeaponModCompat() {
 	}
@@ -64,7 +70,7 @@ public final class WeaponModCompat {
 		return getAmmoItems != null;
 	}
 
-	/** True for items any installed Weapon Mod ranged weapon accepts as ammo. */
+	/** True for the items the heavy crossbow accepts as ammo - i.e. crossbow bolts. */
 	public static boolean isAmmoItem(ItemStack stack) {
 		if (stack == null)
 			return false;
@@ -72,9 +78,8 @@ public final class WeaponModCompat {
 		init();
 		if (getAmmoItems == null)
 			return false;
-		if (ammoTypes == null)
-			ammoTypes = collectAmmoTypes();
-		return ammoTypes.contains(stack.getItem());
+
+		return crossbowAmmo().contains(stack.getItem());
 	}
 
 	/** Ammo a specific ranged component accepts (used by the quiver behind the mixin). */
@@ -100,17 +105,21 @@ public final class WeaponModCompat {
 		return Quiver.consumeQuiverAmmo(player, ammoItems(component));
 	}
 
-	private static Set<Item> collectAmmoTypes() {
+	private static Set<Item> crossbowAmmo() {
+		if (boltTypes != null)
+			return boltTypes;
+
 		Set<Item> types = new HashSet<Item>();
+		try {
+			Object crossbow = GameRegistry.findItem("weaponmod", "crossbow");
+			if (crossbow != null && shooterClass.isInstance(crossbow))
+				types.addAll(asItems(getAmmoItems.invoke(rangedComponentField.get(crossbow))));
+		} catch (Throwable e) {
+			// fall through: an empty set is never cached, so a later call can still succeed
+		}
 
-		for (Object entry : Item.itemRegistry)
-			if (shooterClass.isInstance(entry))
-				try {
-					types.addAll(asItems(getAmmoItems.invoke(rangedComponentField.get(entry))));
-				} catch (Throwable e) {
-					// one broken weapon must not take the whole list down
-				}
-
+		if (!types.isEmpty())
+			boltTypes = types;
 		return types;
 	}
 
