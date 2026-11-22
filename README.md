@@ -172,14 +172,34 @@ Three rules are deliberate:
   and a tipped arrow in the inventory is left to Et Futurum's own handler; the quiver
   is only used when the inventory has neither.
 
-The quiver only ever sees inventory contents; bows that keep a private ammo model
-(RiftFlux's World Explorer Long Bow, which reads the main inventory directly and
-then its own quiver) are not routed through it.
+### Weapon Mod ammo
+
+Balkon's Weapon Mod does not ask `InventoryPlayer` either: its ranged weapons scan
+the inventory through `WMItem.findAnyItemSlot` and spend ammo from `mainInventory`
+directly, so the mixin above cannot reach them. The quiver gets a second,
+**late-loaded** mixin for it (`MixinWeaponModRangedComponent`, registered from
+`LateMixins` and only when `weaponmod` is installed) that answers the two
+`RangedComponent` ammo questions when the inventory has nothing:
+
+* `hasAmmo` — the heavy crossbow (and the musket, blunderbuss, flintlock, mortar and
+  blowgun) accepts quiver ammo, so right-click starts the reload;
+* `hasAmmoAndConsume` — the released shot spends one round from the quiver.
+
+What counts as ammo is read from the weapons themselves
+(`RangedComponent.getAmmoItems()`), so it is the whole set: crossbow bolts, musket
+bullets, shotgun shot, mortar shells and blowgun darts. They go into their own NBT
+list, leave the arrow counter alone, share the quiver's capacity with the arrows,
+and appear in the tooltip and in the sneak-click dump like everything else.
+
+Bows that keep a private ammo model of their own (RiftFlux's World Explorer Long
+Bow, which reads the main inventory directly and then its own quiver) are still not
+routed through the quiver.
 
 Patching a vanilla class means the mod ships a mixin config and needs
 **UniMixins** at runtime (every GTNH instance has it). `usesMixins = true` in
 `gradle.properties` makes the GTNH convention add the manifest entries, the
-UniMixins requirement and the refmap; the targets live in `MixinInventoryPlayerQuiver`.
+UniMixins requirement and the refmap; the targets live in `MixinInventoryPlayerQuiver`
+(main config) and `MixinWeaponModRangedComponent` (late config, other mod).
 
 ## Upstream
 
@@ -209,5 +229,14 @@ RiftFlux 的 More Bows / 灼热弓、LegendGear 都能只靠腰带上的箭筒�
 - **背包优先**：背包里真有普通箭时先扣背包的；背包里有药水箭时交给 Et Futurum 自己的处理器，
   箭筒只在背包都没有时才被扣。
 
-因为改的是原版类，这个 jar 现在**需要 UniMixins**（GTNH 整合包自带）。像 RiftFlux 的
-World Explorer 长弓那种自己扫主背包、再找自家箭筒的弓不在适配范围内。
+因为改的是原版类，这个 jar 现在**需要 UniMixins**（GTNH 整合包自带）。
+
+**箭筒装弩箭（Balkon's Weapon Mod / 更多武器）**：它的远程武器不走 `InventoryPlayer`，而是
+`WMItem.findAnyItemSlot` 扫背包、直接从 `mainInventory` 扣弹药，所以上面那个 mixin 够不着。
+新增**晚加载**的 `MixinWeaponModRangedComponent`（`LateMixins` 注册，只在装了 `weaponmod`
+时生效）：`hasAmmo` 让重弩（以及火枪、散弹枪、燧发枪、迫击炮、吹箭筒）把箭筒当成弹药来源、
+右键能上膛；`hasAmmoAndConsume` 松手时从箭筒扣一发。哪些物品算弹药直接问武器自己
+（`RangedComponent.getAmmoItems()`），所以整套都认：弩箭、火枪子弹、散弹、迫击炮弹、吹箭。
+它们单独存在 `Ammo` 里，不碰箭矢计数，和箭共用箭筒容量，提示框和潜行右键倒出都会列出来。
+
+像 RiftFlux 的 World Explorer 长弓那种自己扫主背包、再找自家箭筒的弓仍然不在适配范围内。

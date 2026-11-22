@@ -43,4 +43,9 @@ dependencies {
 
     // NEI is handy in the dev client for checking the recipes of the remaining content.
     runtimeOnlyNonPublishable("com.github.GTNewHorizons:NotEnoughItems:2.7.69-GTNH:dev")
+
+    // Balkon's Weapon Mod: the quiver accepts its ranged ammo (heavy crossbow bolts included) and
+    // the late mixin feeds those weapons from it. The jar lives in libs/ because the mod is only on
+    // CurseForge; rfg.deobf is required so the mixin annotation processor can resolve the target.
+    devOnlyNonPublishable(rfg.deobf(files("libs/weaponmod-forge-1.7.10-1.25.2.jar")))
 }

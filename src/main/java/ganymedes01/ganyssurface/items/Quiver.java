@@ -11,6 +11,7 @@ import ganymedes01.ganyssurface.api.IQuiver;
 import ganymedes01.ganyssurface.compat.BaublesCompat;
 import ganymedes01.ganyssurface.compat.ModCompat;
 import ganymedes01.ganyssurface.compat.EtFuturumCompat;
+import ganymedes01.ganyssurface.compat.WeaponModCompat;
 import ganymedes01.ganyssurface.core.utils.InventoryUtils;
 import ganymedes01.ganyssurface.core.utils.Utils;
 import ganymedes01.ganyssurface.lib.Strings;
@@ -37,6 +38,11 @@ public class Quiver extends Item implements IQuiver, IConfigurable {
 	// Plain arrows only need a counter (stored in the item damage), but arrows that carry data
 	// (Et Futurum's tipped arrows keep their potion in the stack) are stored as item stacks.
 	private static final String TAG_TIPPED = "TippedArrows";
+
+	// Ammo that is not an arrow at all - the Weapon Mod's crossbow bolts (and its other ranged
+	// ammo) - is stored the same way but kept out of the arrow counter, so the bow logic and the
+	// arrow count never see it. See WeaponModCompat.
+	private static final String TAG_AMMO = "Ammo";
 
 	@SideOnly(Side.CLIENT)
 	private IIcon empty;
@@ -81,6 +87,9 @@ public class Quiver extends Item implements IQuiver, IConfigurable {
 
 		for (ItemStack arrow : tipped)
 			list.add(StatCollector.translateToLocalFormatted(Utils.getString("quiver.line"), arrow.stackSize, arrow.getDisplayName()));
+
+		for (ItemStack ammo : readAmmo(stack))
+			list.add(StatCollector.translateToLocalFormatted(Utils.getString("quiver.line"), ammo.stackSize, ammo.getDisplayName()));
 	}
 
 	@Override
@@ -104,6 +113,13 @@ public class Quiver extends Item implements IQuiver, IConfigurable {
 	}
 
 	@Override
+	@SideOnly(Side.CLIENT)
+	public IIcon getIconIndex(ItemStack stack) {
+		// The damage value is the arrow counter, but bolts count as "packed" for the icon too.
+		return getStoredCount(stack) > 0 ? full : empty;
+	}
+
+	@Override
 	public void setArrowAmount(ItemStack stack, int amount) {
 		stack.setItemDamage(Math.max(0, Math.min(amount, getMaxArrowCount(stack))));
 	}
@@ -115,7 +131,7 @@ public class Quiver extends Item implements IQuiver, IConfigurable {
 
 	@Override
 	public int getMaxArrowCount(ItemStack stack) {
-		return getCapacity();
+		return Math.max(0, getCapacity() - getAmmoCount(stack));
 	}
 
 	public static int getArrowCount(ItemStack stack) {
@@ -234,6 +250,150 @@ public class Quiver extends Item implements IQuiver, IConfigurable {
 			arrows.remove(0);
 		writeTipped(quiver, arrows);
 		return taken;
+	}
+
+	// ------------------------------------------------------------- other ammo
+	//
+	// Arrows are only half of what a quiver is good for in this pack: the Weapon Mod's heavy
+	// crossbow eats bolts and its other ranged weapons eat bullets / shot / shells / darts. Those
+	// are not arrows, so they live in their own NBT list and are counted against capacity
+	// separately. WeaponModCompat owns the "what counts as ammo" question; this section only
+	// stores and hands it back out.
+
+	public static boolean isAmmo(ItemStack stack) {
+		return isArrow(stack) || WeaponModCompat.isAmmoItem(stack);
+	}
+
+	public static List<ItemStack> readAmmo(ItemStack quiver) {
+		List<ItemStack> ammo = new ArrayList<ItemStack>();
+		NBTTagList list = getAmmoList(quiver);
+		if (list != null)
+			for (int i = 0; i < list.tagCount(); i++) {
+				ItemStack stack = ItemStack.loadItemStackFromNBT(list.getCompoundTagAt(i));
+				if (stack != null && stack.stackSize > 0)
+					ammo.add(stack);
+			}
+		return ammo;
+	}
+
+	private static NBTTagList getAmmoList(ItemStack stack) {
+		if (stack == null || stack.getTagCompound() == null)
+			return null;
+		NBTTagList list = stack.getTagCompound().getTagList(TAG_AMMO, 10);
+		return list == null || list.tagCount() == 0 ? null : list;
+	}
+
+	private static void writeAmmo(ItemStack quiver, List<ItemStack> ammo) {
+		if (quiver == null)
+			return;
+
+		NBTTagCompound tag = quiver.getTagCompound();
+		if (tag == null) {
+			if (ammo == null || ammo.isEmpty())
+				return;
+			tag = new NBTTagCompound();
+			quiver.setTagCompound(tag);
+		}
+
+		if (ammo == null || ammo.isEmpty()) {
+			tag.removeTag(TAG_AMMO);
+			if (tag.hasNoTags())
+				quiver.setTagCompound(null);
+			return;
+		}
+
+		NBTTagList list = new NBTTagList();
+		for (ItemStack stack : ammo)
+			if (stack != null && stack.stackSize > 0) {
+				NBTTagCompound entry = new NBTTagCompound();
+				stack.writeToNBT(entry);
+				list.appendTag(entry);
+			}
+		tag.setTag(TAG_AMMO, list);
+	}
+
+	private static void addAmmo(ItemStack quiver, ItemStack stack, int amount) {
+		List<ItemStack> ammo = readAmmo(quiver);
+		for (ItemStack existing : ammo)
+			if (existing.isItemEqual(stack) && ItemStack.areItemStackTagsEqual(existing, stack)) {
+				existing.stackSize += amount;
+				writeAmmo(quiver, ammo);
+				return;
+			}
+
+		ItemStack copy = stack.copy();
+		copy.stackSize = amount;
+		ammo.add(copy);
+		writeAmmo(quiver, ammo);
+	}
+
+	/** Total count of non-arrow ammo stored in the quiver. */
+	public static int getAmmoCount(ItemStack quiver) {
+		int total = 0;
+		for (ItemStack stack : readAmmo(quiver))
+			total += stack.stackSize;
+		return total;
+	}
+
+	/** Everything the quiver holds: arrows (plain + tipped) and other ammo. */
+	public static int getStoredCount(ItemStack quiver) {
+		return getArrowCount(quiver) + getAmmoCount(quiver);
+	}
+
+	public static int countAmmoMatching(ItemStack quiver, List<Item> items) {
+		if (quiver == null || items == null || items.isEmpty())
+			return 0;
+
+		int total = 0;
+		for (ItemStack stack : readAmmo(quiver))
+			if (items.contains(stack.getItem()))
+				total += stack.stackSize;
+		return total;
+	}
+
+	private static boolean takeAmmo(ItemStack quiver, List<Item> items) {
+		List<ItemStack> ammo = readAmmo(quiver);
+		for (int i = 0; i < ammo.size(); i++) {
+			ItemStack stack = ammo.get(i);
+			if (!items.contains(stack.getItem()))
+				continue;
+
+			if (--stack.stackSize <= 0)
+				ammo.remove(i);
+			writeAmmo(quiver, ammo);
+			return true;
+		}
+		return false;
+	}
+
+	private static ItemStack findQuiverWithAmmo(EntityPlayer player, List<Item> items) {
+		if (player == null || items == null || items.isEmpty())
+			return null;
+
+		for (int i = 0; i < player.inventory.getSizeInventory(); i++) {
+			ItemStack stack = player.inventory.getStackInSlot(i);
+			if (countAmmoMatching(stack, items) > 0)
+				return stack;
+		}
+
+		if (ModCompat.baubles()) {
+			ItemStack stack = BaublesCompat.getEquippedQuiver(player);
+			if (countAmmoMatching(stack, items) > 0)
+				return stack;
+		}
+
+		return null;
+	}
+
+	/** Used by the Weapon Mod compatibility: is any of {@code items} in a quiver the player carries? */
+	public static boolean hasQuiverAmmo(EntityPlayer player, List<Item> items) {
+		return findQuiverWithAmmo(player, items) != null;
+	}
+
+	/** Used by the Weapon Mod compatibility: spend one matching item from the quiver. */
+	public static boolean consumeQuiverAmmo(EntityPlayer player, List<Item> items) {
+		ItemStack quiver = findQuiverWithAmmo(player, items);
+		return quiver != null && takeAmmo(quiver, items);
 	}
 
 	/** Returns what the next shot would consume, without removing it. */
@@ -356,20 +516,21 @@ public class Quiver extends Item implements IQuiver, IConfigurable {
 	// ---------------------------------------------------------------- filling
 
 	private void absorbArrows(ItemStack quiver, EntityPlayer player) {
-		int free = getCapacity() - getArrowCount(quiver);
+		int free = getCapacity() - getStoredCount(quiver);
 
 		for (int i = 0; i < player.inventory.getSizeInventory() && free > 0; i++) {
 			ItemStack stack = player.inventory.getStackInSlot(i);
-			if (!isArrow(stack) || stack.stackSize <= 0)
+			if (!isAmmo(stack) || stack.stackSize <= 0)
 				continue;
 
 			int moved = Math.min(free, stack.stackSize);
 			if (isPlainArrow(stack))
 				setArrowCount(quiver, getArrowCount(quiver) + moved);
-			else {
+			else if (isArrow(stack)) {
 				addTipped(quiver, stack, moved);
 				setArrowCount(quiver, getArrowCount(quiver) + moved);
-			}
+			} else
+				addAmmo(quiver, stack, moved);
 
 			stack.stackSize -= moved;
 			if (stack.stackSize <= 0)
@@ -382,10 +543,8 @@ public class Quiver extends Item implements IQuiver, IConfigurable {
 
 	private void dumpArrows(ItemStack quiver, EntityPlayer player) {
 		int total = getArrowCount(quiver);
-		if (total <= 0)
-			return;
-
 		int plain = total - getTippedCount(quiver);
+
 		for (ItemStack arrow : readTipped(quiver)) {
 			int size = arrow.stackSize;
 			while (size > 0) {
@@ -397,6 +556,18 @@ public class Quiver extends Item implements IQuiver, IConfigurable {
 			}
 		}
 		writeTipped(quiver, null);
+
+		for (ItemStack ammo : readAmmo(quiver)) {
+			int size = ammo.stackSize;
+			while (size > 0) {
+				int amount = Math.min(ammo.getMaxStackSize(), size);
+				ItemStack out = ammo.copy();
+				out.stackSize = amount;
+				InventoryUtils.addToPlayerInventory(player, out, player.posX, player.posY, player.posZ);
+				size -= amount;
+			}
+		}
+		writeAmmo(quiver, null);
 
 		while (plain > 0) {
 			int amount = Math.min(ARROW_STACK_SIZE, plain);
