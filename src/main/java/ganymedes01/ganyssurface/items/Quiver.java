@@ -298,6 +298,60 @@ public class Quiver extends Item implements IQuiver, IConfigurable {
 		return total;
 	}
 
+	// ---------------------------------------------------- arrows for other mods' bows
+	//
+	// Modded bows never touch this mod's arrow API: they ask InventoryPlayer for a plain arrow
+	// (`hasItem` / `consumeInventoryItem`). MixinInventoryPlayerQuiver forwards those two
+	// questions here, which is why these helpers only ever look at *plain* arrows. Tipped arrows
+	// are deliberately excluded: a modded bow builds its own EntityArrow and would drop the
+	// potion, and the vanilla bow already consumes those through the ArrowLooseEvent handler.
+
+	/** Plain arrows carried as items, i.e. what {@code InventoryPlayer.hasItem} itself sees. */
+	public static boolean hasInventoryArrow(EntityPlayer player) {
+		if (player == null)
+			return false;
+
+		for (int i = 0; i < player.inventory.mainInventory.length; i++) {
+			ItemStack stack = player.inventory.mainInventory[i];
+			if (stack != null && stack.getItem() == Items.arrow)
+				return true;
+		}
+
+		return false;
+	}
+
+	public static ItemStack findQuiverWithPlainArrows(EntityPlayer player) {
+		if (player == null)
+			return null;
+
+		for (int i = 0; i < player.inventory.getSizeInventory(); i++) {
+			ItemStack stack = player.inventory.getStackInSlot(i);
+			if (getPlainArrowCount(stack) > 0)
+				return stack;
+		}
+
+		if (ModCompat.baubles()) {
+			ItemStack stack = BaublesCompat.getEquippedQuiver(player);
+			if (getPlainArrowCount(stack) > 0)
+				return stack;
+		}
+
+		return null;
+	}
+
+	public static boolean hasQuiverPlainArrow(EntityPlayer player) {
+		return findQuiverWithPlainArrows(player) != null;
+	}
+
+	public static boolean consumeQuiverPlainArrow(EntityPlayer player) {
+		ItemStack quiver = findQuiverWithPlainArrows(player);
+		if (quiver == null)
+			return false;
+
+		setArrowCount(quiver, getArrowCount(quiver) - 1);
+		return true;
+	}
+
 	// ---------------------------------------------------------------- filling
 
 	private void absorbArrows(ItemStack quiver, EntityPlayer player) {

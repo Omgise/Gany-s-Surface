@@ -44,14 +44,15 @@ public class MiscEventHandler {
 		if (stack == null)
 			return;
 
-		boolean flag = false;
+		boolean ammo = EnchantmentHelper.getEnchantmentLevel(Enchantment.infinity.effectId, stack) > 0;
 
-		if (EnchantmentHelper.getEnchantmentLevel(Enchantment.infinity.effectId, stack) > 0)
-			flag = true;
-		else
-			flag = Quiver.countArrows(event.entityPlayer) > 0;
+		// The vanilla bow is the only bow that fires the quiver's tipped arrows, so it may draw
+		// on any arrow the quiver holds. Other bows only ever get plain arrows from the quiver
+		// (MixinInventoryPlayerQuiver), so drawing with a tipped-only quiver would just be silent.
+		if (!ammo)
+			ammo = stack.getItem() == Items.bow ? Quiver.countArrows(event.entityPlayer) > 0 : Quiver.hasQuiverPlainArrow(event.entityPlayer);
 
-		if (flag) {
+		if (ammo) {
 			event.setCanceled(true);
 			event.entityPlayer.setItemInUse(stack, stack.getItem().getMaxItemUseDuration(stack));
 		}
@@ -59,7 +60,15 @@ public class MiscEventHandler {
 
 	@SubscribeEvent
 	public void arrowLoose(ArrowLooseEvent event) {
-		if (event.entityPlayer.inventory.hasItem(Items.arrow) || EnchantmentHelper.getEnchantmentLevel(Enchantment.infinity.effectId, event.bow) > 0)
+		// Only the vanilla bow is emulated here: it is the one bow whose arrow item this mod
+		// controls (the quiver's tipped arrows go through Et Futurum's EntityTippedArrow). Every
+		// other bow keeps its own arrow entity - Twilight Forest's triple/ice/seeker/ender bows,
+		// Draconic Evolution's custom arrows, ... - and finds the quiver's plain arrows through
+		// MixinInventoryPlayerQuiver instead of having its shot replaced by a plain arrow here.
+		if (event.bow == null || event.bow.getItem() != Items.bow)
+			return;
+
+		if (Quiver.hasInventoryArrow(event.entityPlayer) || EnchantmentHelper.getEnchantmentLevel(Enchantment.infinity.effectId, event.bow) > 0)
 			return;
 
 		ItemStack quiver = Quiver.findQuiverWithArrows(event.entityPlayer);

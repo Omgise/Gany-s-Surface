@@ -135,6 +135,40 @@ runtime: EF is reached by reflection, the Baubles item class is only loaded when
 its API class is present, and the check uses the class rather than `isModLoaded`
 because the fork's mod id is `Baubles|Expanded`.
 
+### Modded bows
+
+Other mods' bows never call this mod. They ask `InventoryPlayer` instead:
+`hasItem(Items.arrow)` decides whether they may draw and fire, and
+`consumeInventoryItem(Items.arrow)` spends an arrow. `MixinInventoryPlayerQuiver`
+answers both questions from the quiver, so a bow keeps its own arrow entity and
+the quiver simply acts as its ammo:
+
+| Bow | Result |
+|---|---|
+| vanilla bow | unchanged: the `ArrowLooseEvent` handler still fires the quiver's tipped arrows through Et Futurum's `EntityTippedArrow` |
+| Twilight Forest (triple / ice / seeker / ender) | fires its own arrow; the event is no longer cancelled, so the triple shot, homing, freezing and ender teleport survive |
+| Natura, Ender Zoo, CoFH bows, Mekanism's electric bow, RiftFlux's More Bows / Searing Bow, LegendGear | draw and fire with nothing but a quiver on the belt |
+| Draconic Evolution | spends the quiver's plain arrows for its custom arrows; its own ender arrows are untouched |
+| Avaritia's Infinity Bow | untouched (it does not consume arrows) |
+
+Two rules are deliberate:
+
+* **plain arrows only** — a modded bow spawns its own `EntityArrow`, so a tipped
+  arrow taken from the quiver would silently lose its potion. Tipped arrows stay
+  vanilla-bow ammo; a tipped-only quiver will not let a modded bow fire.
+* **the inventory wins** — a real arrow stack in the inventory is always spent
+  first; the quiver is only touched when there is none.
+
+The quiver only ever sees inventory contents; bows that keep a private ammo model
+(RiftFlux's World Explorer Long Bow, which reads the main inventory directly and
+then its own quiver) are not routed through it.
+
+Patching a vanilla class means the mod ships a mixin config and needs
+**UniMixins** at runtime (every GTNH instance has it). `usesMixins = true` in
+`gradle.properties` makes the GTNH convention add the manifest entries, the
+UniMixins requirement and the refmap; the targets live in `MixinInventoryPlayerQuiver`.
+
+
 While a quiver is worn it is drawn on the player's back, from the item's own icon,
 so the empty art and the with-arrows art (texture packs such as Modernity draw the
 latter at `minecraft:quiver`) always match the inventory. The sprite leans with the
@@ -155,3 +189,17 @@ Original mod by ganymedes01, released under the Unlicense. Forum thread:
 玩法逻辑保持上游原样。
 
 构建：`gradlew.bat build`，产物 `build/libs/ganyssurface-1.12.8.jar`。
+
+**箭筒与其他模组的弓**：其他模组的弓不会调用本模组，它们只问
+`InventoryPlayer.hasItem(Items.arrow)`（能不能拉弓/放箭）和
+`consumeInventoryItem(Items.arrow)`（扣一支箭）。`MixinInventoryPlayerQuiver` 把这两个问题
+接到箭筒上，所以暮色森林的三重弓/冰弓/追踪弓/末影弓、Natura、Ender Zoo、CoFH、Mekanism
+电动弓、RiftFlux 的 More Bows / 灼热弓、LegendGear 都能只靠腰带上的箭筒拉弓放箭，而且各
+自的特殊箭矢照常生效（原先 `ArrowLooseEvent` 会把它们整发替换成一支普通箭）。两条边界：
+
+- **只认普通箭**：模组弓自己 `new EntityArrow`，从箭筒拿药水箭会丢掉药水效果，所以药水箭
+  仍然只给原版弓用；箭筒里只有药水箭时模组弓不能开火。
+- **背包优先**：背包里真有普通箭时先扣背包的，箭筒只在背包没有时被扣。
+
+因为改的是原版类，这个 jar 现在**需要 UniMixins**（GTNH 整合包自带）。像 RiftFlux 的
+World Explorer 长弓那种自己扫主背包、再找自家箭筒的弓不在适配范围内。
