@@ -135,6 +135,13 @@ runtime: EF is reached by reflection, the Baubles item class is only loaded when
 its API class is present, and the check uses the class rather than `isModLoaded`
 because the fork's mod id is `Baubles|Expanded`.
 
+While a quiver is worn it is drawn on the player's back, from the item's own icon,
+so the empty art and the with-arrows art (texture packs such as Modernity draw the
+latter at `minecraft:quiver`) always match the inventory. The sprite leans with the
+torso pose, which carries it through vanilla sneaking and EvenMoBends' animated
+body, and the cape is hidden while the quiver occupies that spot. Its placement is
+a constant in `QuiverPlayerRenderer` (`SCALE` / `OFFSET_X` / `OFFSET_Y` / `OFFSET_Z`).
+
 ### Modded bows
 
 Other mods' bows never call this mod. They ask `InventoryPlayer` instead:
@@ -145,19 +152,25 @@ the quiver simply acts as its ammo:
 
 | Bow | Result |
 |---|---|
-| vanilla bow | unchanged: the `ArrowLooseEvent` handler still fires the quiver's tipped arrows through Et Futurum's `EntityTippedArrow` |
-| Twilight Forest (triple / ice / seeker / ender) | fires its own arrow; the event is no longer cancelled, so the triple shot, homing, freezing and ender teleport survive |
-| Natura, Ender Zoo, CoFH bows, Mekanism's electric bow, RiftFlux's More Bows / Searing Bow, LegendGear | draw and fire with nothing but a quiver on the belt |
+| vanilla bow | unchanged: it fires plain or tipped quiver arrows through the `ArrowLooseEvent` handler |
+| Twilight Forest (triple / ice / seeker / ender) | plain quiver arrows: its own arrow, so the triple shot, homing, freezing and ender teleport survive. A tipped quiver arrow: one tipped arrow, like a tipped arrow in the inventory |
+| Natura (fusewood), CoFH bows (e.g. Thermal Foundation's Invar Bow), RiftFlux's More Bows / Searing Bow, LegendGear | draw and fire with nothing but a quiver on the belt |
+| Natura (plain), Ender Zoo's Guardians Bow, Mekanism's electric bow | draw and fire plain quiver arrows; they never post `ArrowLooseEvent`, so tipped arrows from the quiver do not apply |
 | Draconic Evolution | spends the quiver's plain arrows for its custom arrows; its own ender arrows are untouched |
 | Avaritia's Infinity Bow | untouched (it does not consume arrows) |
 
-Two rules are deliberate:
+Three rules are deliberate:
 
-* **plain arrows only** — a modded bow spawns its own `EntityArrow`, so a tipped
-  arrow taken from the quiver would silently lose its potion. Tipped arrows stay
-  vanilla-bow ammo; a tipped-only quiver will not let a modded bow fire.
-* **the inventory wins** — a real arrow stack in the inventory is always spent
-  first; the quiver is only touched when there is none.
+* **a plain quiver arrow keeps the bow's own shot** — a modded bow spawns its own
+  `EntityArrow` (triple shot, ice, homing, ...), so plain arrows are simply ammo for it.
+* **a tipped quiver arrow is fired as Et Futurum's tipped arrow, for any bow that
+  posts `ArrowLooseEvent`** — that is exactly what Et Futurum already does for tipped
+  arrows lying in the inventory, so the shot becomes one tipped arrow instead of the
+  bow's special arrow. Bows that never post the event (Ender Zoo, Mekanism) only get
+  plain arrows.
+* **the inventory wins** — a real plain arrow stack in the inventory is spent first,
+  and a tipped arrow in the inventory is left to Et Futurum's own handler; the quiver
+  is only used when the inventory has neither.
 
 The quiver only ever sees inventory contents; bows that keep a private ammo model
 (RiftFlux's World Explorer Long Bow, which reads the main inventory directly and
@@ -167,14 +180,6 @@ Patching a vanilla class means the mod ships a mixin config and needs
 **UniMixins** at runtime (every GTNH instance has it). `usesMixins = true` in
 `gradle.properties` makes the GTNH convention add the manifest entries, the
 UniMixins requirement and the refmap; the targets live in `MixinInventoryPlayerQuiver`.
-
-
-While a quiver is worn it is drawn on the player's back, from the item's own icon,
-so the empty art and the with-arrows art (texture packs such as Modernity draw the
-latter at `minecraft:quiver`) always match the inventory. The sprite leans with the
-torso pose, which carries it through vanilla sneaking and EvenMoBends' animated
-body, and the cape is hidden while the quiver occupies that spot. Its placement is
-a constant in `QuiverPlayerRenderer` (`SCALE` / `OFFSET_X` / `OFFSET_Y` / `OFFSET_Z`).
 
 ## Upstream
 
@@ -193,13 +198,16 @@ Original mod by ganymedes01, released under the Unlicense. Forum thread:
 **箭筒与其他模组的弓**：其他模组的弓不会调用本模组，它们只问
 `InventoryPlayer.hasItem(Items.arrow)`（能不能拉弓/放箭）和
 `consumeInventoryItem(Items.arrow)`（扣一支箭）。`MixinInventoryPlayerQuiver` 把这两个问题
-接到箭筒上，所以暮色森林的三重弓/冰弓/追踪弓/末影弓、Natura、Ender Zoo、CoFH、Mekanism
-电动弓、RiftFlux 的 More Bows / 灼热弓、LegendGear 都能只靠腰带上的箭筒拉弓放箭，而且各
-自的特殊箭矢照常生效（原先 `ArrowLooseEvent` 会把它们整发替换成一支普通箭）。两条边界：
+接到箭筒上，所以暮色森林的四把弓、Natura、Ender Zoo、CoFH（热力基础的弓）、Mekanism 电动弓、
+RiftFlux 的 More Bows / 灼热弓、LegendGear 都能只靠腰带上的箭筒拉弓放箭。三条边界：
 
-- **只认普通箭**：模组弓自己 `new EntityArrow`，从箭筒拿药水箭会丢掉药水效果，所以药水箭
-  仍然只给原版弓用；箭筒里只有药水箭时模组弓不能开火。
-- **背包优先**：背包里真有普通箭时先扣背包的，箭筒只在背包没有时被扣。
+- **普通箭**：模组弓自己 `new EntityArrow`，所以普通箭只是它的弹药，三重弓/冰弓/追踪弓的
+  特殊箭矢照常生效（原先 `ArrowLooseEvent` 会把它们整发替换成一支普通箭）。
+- **药水箭**：箭筒里的药水箭按 Et Futurum 的 `EntityTippedArrow` 打出去（与放在背包里时的
+  行为一致），对所有会发 `ArrowLooseEvent` 的弓生效——原版弓、暮色四把、CoFH、Natura 的
+  Fusewood、RiftFlux、DE、LegendGear。不发这个事件的弓（Ender Zoo、Mekanism 电动弓）只用普通箭。
+- **背包优先**：背包里真有普通箭时先扣背包的；背包里有药水箭时交给 Et Futurum 自己的处理器，
+  箭筒只在背包都没有时才被扣。
 
 因为改的是原版类，这个 jar 现在**需要 UniMixins**（GTNH 整合包自带）。像 RiftFlux 的
 World Explorer 长弓那种自己扫主背包、再找自家箭筒的弓不在适配范围内。

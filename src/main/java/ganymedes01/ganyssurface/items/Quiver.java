@@ -303,8 +303,9 @@ public class Quiver extends Item implements IQuiver, IConfigurable {
 	// Modded bows never touch this mod's arrow API: they ask InventoryPlayer for a plain arrow
 	// (`hasItem` / `consumeInventoryItem`). MixinInventoryPlayerQuiver forwards those two
 	// questions here, which is why these helpers only ever look at *plain* arrows. Tipped arrows
-	// are deliberately excluded: a modded bow builds its own EntityArrow and would drop the
-	// potion, and the vanilla bow already consumes those through the ArrowLooseEvent handler.
+	// are excluded on purpose: a modded bow builds its own EntityArrow and would drop the potion.
+	// They are handled in MiscEventHandler instead, which fires Et Futurum's tipped arrow for any
+	// bow that posts ArrowLooseEvent.
 
 	/** Plain arrows carried as items, i.e. what {@code InventoryPlayer.hasItem} itself sees. */
 	public static boolean hasInventoryArrow(EntityPlayer player) {

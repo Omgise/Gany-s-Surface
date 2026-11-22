@@ -4,6 +4,7 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
 
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.projectile.EntityArrow;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
@@ -49,6 +50,22 @@ public final class EtFuturumCompat {
 	public static boolean isTippedArrow(ItemStack stack) {
 		init();
 		return stack != null && tippedArrowItem != null && tippedArrowItem.isInstance(stack.getItem());
+	}
+
+	/**
+	 * True when the player carries Et Futurum tipped arrows as inventory items. Those are fired by
+	 * EF's own {@code ArrowLooseEvent} handler, so the quiver must stay out of that shot.
+	 */
+	public static boolean hasTippedArrowInInventory(EntityPlayer player) {
+		init();
+		if (tippedArrowItem == null || player == null)
+			return false;
+
+		for (int i = 0; i < player.inventory.getSizeInventory(); i++)
+			if (isTippedArrow(player.inventory.getStackInSlot(i)))
+				return true;
+
+		return false;
 	}
 
 	public static EntityArrow createTippedArrow(World world, EntityLivingBase shooter, float velocity, ItemStack arrow) {

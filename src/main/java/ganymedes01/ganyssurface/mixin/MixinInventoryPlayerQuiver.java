@@ -33,9 +33,10 @@ import net.minecraft.item.Item;
  * <p>
  * So instead of emulating every bow, the quiver answers those two questions for plain arrows.
  * The bow keeps its own arrow entity (triple shot, homing, freezing, ender teleport, ...) and
- * the quiver is simply its ammo. Tipped arrows stay vanilla-bow-only: a modded bow would fire
- * them as a plain {@code EntityArrow} and silently lose the potion, so they are deliberately
- * not counted here - {@link Quiver#hasQuiverPlainArrow} ignores them.
+ * the quiver is simply its ammo. Tipped arrows are deliberately not counted here: a modded bow
+ * would fire them as a plain {@code EntityArrow} and silently lose the potion. They are handled
+ * one level up instead, in the mod's {@code ArrowLooseEvent} hook, which fires Et Futurum's
+ * {@code EntityTippedArrow} for every bow that posts that event (see {@code MiscEventHandler}).
  *
  * <p>
  * Both injections are no-ops unless the player is actually carrying a quiver with plain arrows,

@@ -46,11 +46,10 @@ public class MiscEventHandler {
 
 		boolean ammo = EnchantmentHelper.getEnchantmentLevel(Enchantment.infinity.effectId, stack) > 0;
 
-		// The vanilla bow is the only bow that fires the quiver's tipped arrows, so it may draw
-		// on any arrow the quiver holds. Other bows only ever get plain arrows from the quiver
-		// (MixinInventoryPlayerQuiver), so drawing with a tipped-only quiver would just be silent.
+		// Any arrow counts here, tipped included: a bow has to be drawable before arrowLoose can
+		// decide what the shot becomes (plain for its own arrow entity, tipped through Et Futurum).
 		if (!ammo)
-			ammo = stack.getItem() == Items.bow ? Quiver.countArrows(event.entityPlayer) > 0 : Quiver.hasQuiverPlainArrow(event.entityPlayer);
+			ammo = Quiver.countArrows(event.entityPlayer) > 0;
 
 		if (ammo) {
 			event.setCanceled(true);
@@ -60,19 +59,34 @@ public class MiscEventHandler {
 
 	@SubscribeEvent
 	public void arrowLoose(ArrowLooseEvent event) {
-		// Only the vanilla bow is emulated here: it is the one bow whose arrow item this mod
-		// controls (the quiver's tipped arrows go through Et Futurum's EntityTippedArrow). Every
-		// other bow keeps its own arrow entity - Twilight Forest's triple/ice/seeker/ender bows,
-		// Draconic Evolution's custom arrows, ... - and finds the quiver's plain arrows through
-		// MixinInventoryPlayerQuiver instead of having its shot replaced by a plain arrow here.
-		if (event.bow == null || event.bow.getItem() != Items.bow)
+		if (event.bow == null || event.isCanceled())
 			return;
 
-		if (Quiver.hasInventoryArrow(event.entityPlayer) || EnchantmentHelper.getEnchantmentLevel(Enchantment.infinity.effectId, event.bow) > 0)
+		EntityPlayer player = event.entityPlayer;
+
+		// Infinity bows spawn their own free arrows; never spend the quiver on them.
+		if (EnchantmentHelper.getEnchantmentLevel(Enchantment.infinity.effectId, event.bow) > 0)
 			return;
 
-		ItemStack quiver = Quiver.findQuiverWithArrows(event.entityPlayer);
+		// Real arrows in the inventory are the bow's own ammo, and a tipped arrow lying there is
+		// Et Futurum's business - its own ArrowLooseEvent handler fires those with priority.
+		if (Quiver.hasInventoryArrow(player) || EtFuturumCompat.hasTippedArrowInInventory(player))
+			return;
+
+		ItemStack quiver = Quiver.findQuiverWithArrows(player);
 		if (quiver == null)
+			return;
+
+		ItemStack arrowStack = Quiver.peekArrow(quiver);
+		if (arrowStack == null)
+			return;
+
+		// The vanilla bow fires whatever the quiver holds. Every other bow keeps its own arrow
+		// entity - Twilight Forest's triple / ice / seeker / ender arrows, CoFH's multishot, ... -
+		// so it is only overridden for a tipped arrow: a modded bow spawns a plain EntityArrow and
+		// would silently drop the potion. Plain arrows are left to the bow and come out of the
+		// quiver through MixinInventoryPlayerQuiver.
+		if (event.bow.getItem() != Items.bow && !EtFuturumCompat.isTippedArrow(arrowStack))
 			return;
 
 		float charge = event.charge / 20.0F;
@@ -82,10 +96,6 @@ public class MiscEventHandler {
 			return;
 		if (charge > 1.0F)
 			charge = 1.0F;
-
-		ItemStack arrowStack = Quiver.peekArrow(quiver);
-		if (arrowStack == null)
-			return;
 
 		EntityArrow arrow;
 		if (EtFuturumCompat.isTippedArrow(arrowStack))
