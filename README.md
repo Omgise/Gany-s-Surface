@@ -135,6 +135,14 @@ runtime: EF is reached by reflection, the Baubles item class is only loaded when
 its API class is present, and the check uses the class rather than `isModLoaded`
 because the fork's mod id is `Baubles|Expanded`.
 
+While a quiver is worn it is drawn on the player's back, from the item's own icon,
+so the empty art and the with-arrows art (texture packs such as Modernity draw the
+latter at `minecraft:quiver`) always match the inventory. The sprite leans with the
+torso pose, which carries it through vanilla sneaking and EvenMoBends' animated
+body, and the cape is hidden while the quiver occupies that spot. Its placement can
+be tuned in game with `/quiveroffsets <scale> <x> <y> <z>` (or `reset`), which is
+saved to `config/ganyssurface-quiver.txt`.
+
 ## Upstream
 
 Original mod by ganymedes01, released under the Unlicense. Forum thread:
