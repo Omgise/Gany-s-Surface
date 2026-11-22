@@ -196,7 +196,9 @@ string.ganyssurface.pleaseletmefree1=Was sagt der Tintenfisch?
 string.ganyssurface.attacktocapture=Linksklick auf eine Fledermaus oder einen Tintenfisch, um sie/ihn zu fangen
 string.ganyssurface.interacttorotate=Rechtsklick auf Stämme, Säulen und so weiter, um sie zu drehen
 string.ganyssurface.portableWorktable=%s oder Rechtskilck zum öffnen.
-string.ganyssurface.quiver=%dx Pfeile
+string.ganyssurface.quiver=Köcher:
+string.ganyssurface.quiver.line=%d x %s
+string.ganyssurface.quiver.empty=Leer
 
 # Others
 entity.ItemFrame.name=Rahmen
