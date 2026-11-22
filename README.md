@@ -3,7 +3,8 @@
 Unofficial port of [Gany's Surface](https://github.com/buttilda/Gany-s-Surface) 1.12.8
 (Minecraft 1.7.10) to the GTNH build environment, with the content that
 [Et Futurum Requiem](https://github.com/GTNewHorizons/Et-Futurum-Requiem) already
-provides removed.
+provides removed. The fork's own version line is **1.13.0** (upstream stayed on
+1.12.8); the jar and `mcmod.info` carry the fork version.
 
 This branch (`gtnh`) is a personal-use fork. It is not affiliated with the GTNH
 team and is not published to CurseForge/Modrinth.
@@ -27,9 +28,9 @@ Artifacts land in `build/libs/`:
 
 | File | Purpose |
 |---|---|
-| `ganyssurface-1.12.8.jar` | release build (SRG names), drop this into `mods/` |
-| `ganyssurface-1.12.8-dev.jar` | development build (MCP names), for `runClient` |
-| `ganyssurface-1.12.8-sources.jar` | sources |
+| `ganyssurface-1.13.0.jar` | release build (SRG names), drop this into `mods/` |
+| `ganyssurface-1.13.0-dev.jar` | development build (MCP names), for `runClient` |
+| `ganyssurface-1.13.0-sources.jar` | sources |
 
 Optional integrations are compiled against GTNH Maven artifacts and are only wired
 up at runtime when the matching mod is installed:
@@ -219,9 +220,10 @@ Original mod by ganymedes01, released under the Unlicense. Forum thread:
 这个分支是把 Gany's Surface 1.12.8 迁移到 GTNH 构建环境（RFG + Gradle 9.7.1）后的
 非官方版本，并删掉了所有与 Et Futurum Requiem 重复的方块与物品（见上表），包括它们的
 配方、矿物词典条目、语言文件、贴图和配置项。迁移过程只改构建脚本和上面这些内容，其余
-玩法逻辑保持上游原样。
+玩法逻辑保持上游原样。**fork 自己的版本号是 1.13.0**（上游仍是 1.12.8），jar 名与
+`mcmod.info` 里的版本都取这个。
 
-构建：`gradlew.bat build`，产物 `build/libs/ganyssurface-1.12.8.jar`。
+构建：`gradlew.bat build`，产物 `build/libs/ganyssurface-1.13.0.jar`。
 
 **箭筒与其他模组的弓**：其他模组的弓不会调用本模组，它们只问
 `InventoryPlayer.hasItem(Items.arrow)`（能不能拉弓/放箭）和
