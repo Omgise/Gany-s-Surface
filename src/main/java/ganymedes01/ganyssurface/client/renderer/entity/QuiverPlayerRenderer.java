@@ -26,8 +26,11 @@ import net.minecraftforge.client.event.RenderPlayerEvent;
  * follows the approach Inmis uses for its backpacks on 1.7.10 (the specials event still has the
  * player's body transform active): flip 180 degrees around X so the item quad faces backwards,
  * move it behind the torso, then draw it with ItemRenderer.renderItemIn2D so it gets a little
- * depth instead of being a paper-thin billboard. The texture follows the contents: the with-arrows
- * art while it holds arrows, the empty one otherwise.
+ * depth instead of being a paper-thin billboard.
+ *
+ * The texture follows the contents: the vanilla-domain "quiver" (which texture packs such as
+ * Modernity draw with arrows) while it holds arrows, the mod's own empty quiver otherwise. If no
+ * pack supplies that texture the empty one is used for both states.
  *
  * @author ganymedes01
  *
@@ -37,11 +40,13 @@ import net.minecraftforge.client.event.RenderPlayerEvent;
 public class QuiverPlayerRenderer {
 
 	private static final ResourceLocation EMPTY_TEXTURE = new ResourceLocation(Reference.MOD_ID + ":textures/items/quiver.png");
-	private static final ResourceLocation FULL_TEXTURE = new ResourceLocation(Reference.MOD_ID + ":textures/items/quiver_full.png");
+	private static final ResourceLocation PACKED_TEXTURE = new ResourceLocation("minecraft", "textures/items/quiver.png");
 
 	private static final float SCALE = 0.55F;
 	private static final float OFFSET_Y = -0.6F;
 	private static final float OFFSET_Z = -0.25F;
+
+	private static Boolean hasPackedTexture;
 
 	@SubscribeEvent
 	public void onRenderSpecials(RenderPlayerEvent.Specials.Post event) {
@@ -76,12 +81,28 @@ public class QuiverPlayerRenderer {
 			GL11.glScalef(SCALE, SCALE, SCALE);
 			GL11.glTranslatef(-0.5F, -0.5F, 0.0F);
 
-			Minecraft.getMinecraft().getTextureManager().bindTexture(Quiver.getArrowCount(quiver) > 0 ? FULL_TEXTURE : EMPTY_TEXTURE);
+			Minecraft.getMinecraft().getTextureManager().bindTexture(textureFor(quiver));
 			GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
 			ItemRenderer.renderItemIn2D(Tessellator.instance, 1.0F, 0.0F, 0.0F, 1.0F, 16, 16, 0.0625F);
 		} finally {
 			GL11.glPopMatrix();
 			GL11.glPopAttrib();
 		}
+	}
+
+	private static ResourceLocation textureFor(ItemStack quiver) {
+		if (Quiver.getArrowCount(quiver) <= 0)
+			return EMPTY_TEXTURE;
+
+		if (hasPackedTexture == null) {
+			hasPackedTexture = Boolean.FALSE;
+			try {
+				Minecraft.getMinecraft().getResourceManager().getResource(PACKED_TEXTURE);
+				hasPackedTexture = Boolean.TRUE;
+			} catch (Exception ignored) {
+			}
+		}
+
+		return hasPackedTexture.booleanValue() ? PACKED_TEXTURE : EMPTY_TEXTURE;
 	}
 }

@@ -86,9 +86,14 @@ public class Quiver extends Item implements IQuiver, IConfigurable {
 	@Override
 	@SideOnly(Side.CLIENT)
 	public void registerIcons(IIconRegister reg) {
-		// Not super.registerIcons: the item has two states and no use for a default icon.
+		// Two states, two textures: the mod's own empty quiver, and the vanilla-domain "quiver"
+		// that texture packs (Modernity in GTNH) draw with arrows sticking out. Without such a
+		// pack "minecraft:quiver" resolves to missingno, in which case both states use ours.
 		empty = reg.registerIcon(Utils.getItemTexture(Strings.QUIVER_NAME));
-		full = reg.registerIcon(Utils.getItemTexture(Strings.QUIVER_NAME + "_full"));
+
+		IIcon packed = reg.registerIcon("minecraft:" + Strings.QUIVER_NAME);
+		full = packed == null || "missingno".equals(packed.getIconName()) ? empty : packed;
+
 		itemIcon = empty;
 	}
 
