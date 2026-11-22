@@ -8,6 +8,7 @@ import ganymedes01.ganyssurface.GanysSurface;
 import ganymedes01.ganyssurface.ModBlocks;
 import ganymedes01.ganyssurface.ModItems;
 import ganymedes01.ganyssurface.client.renderer.block.BlockColouredRedstoneRender;
+import ganymedes01.ganyssurface.client.renderer.entity.QuiverPlayerRenderer;
 import ganymedes01.ganyssurface.client.renderer.block.BlockDualWorkTableRender;
 import ganymedes01.ganyssurface.client.renderer.block.BlockItemDisplayRender;
 import ganymedes01.ganyssurface.client.renderer.block.BlockPlanterRender;
@@ -60,6 +61,8 @@ public class ClientProxy extends CommonProxy {
 
 		if (!Loader.isModLoaded("ganysend") && !Loader.isModLoaded("ganysnether"))
 			MinecraftForge.EVENT_BUS.register(new RenderCapeHandler());
+
+		MinecraftForge.EVENT_BUS.register(new QuiverPlayerRenderer());
 	}
 
 	@Override
